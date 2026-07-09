@@ -14,7 +14,7 @@
 [![Tests](https://img.shields.io/badge/tests-74%20passing-brightgreen)](.github/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
-[Capturas](#capturas-de-pantalla) · [Arquitectura](#arquitectura) · [Instalación](#instalación) · [Tests](#tests-y-calidad) · [Roadmap](#roadmap)
+[Capturas](#capturas-de-pantalla) · [Arquitectura](#arquitectura) · [Instalación](#instalación) · [Tests](#tests-y-calidad)
 
 </div>
 
@@ -171,12 +171,6 @@ Este repositorio muestra el proyecto original **y** un proceso posterior de refa
 - [x] Unificación de convenciones de nombres en DTOs y namespaces
 - [x] Suite de 74 tests unitarios con MSTest + Moq
 - [x] Pipeline de CI con GitHub Actions (build + tests en cada push/PR)
-
-### Roadmap
-
-- [ ] Migrar de Database First a Code First con migraciones versionadas
-- [ ] Tests de integración contra una base de datos efímera (LocalDB/contenedor)
-- [ ] Explorar migración de la capa de presentación a una arquitectura Clean Architecture / MVVM
 
 ---
 
