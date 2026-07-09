@@ -1,8 +1,8 @@
 # 🏥 Sistema de Gestión Hospitalaria (N-Layer)
 
-[<img src="https://img.shields.io/badge/Descargar-Ejecutable_v1.0-orange?style=for-the-badge&logo=windows" />](https://github.com/TFacund0/Sistema-Hospitalario/releases/tag/v1.0)
+[<img src="https://img.shields.io/badge/Descargar-Ejecutable_v1.0-orange?style=for-the-badge&logo=windows" />](https://github.com/TFacund0/Clinicks-Desktop/releases/tag/v1.0)
 
-[![CI](https://github.com/TFacund0/Sistema-Hospitalario/actions/workflows/ci.yml/badge.svg)](https://github.com/TFacund0/Sistema-Hospitalario/actions/workflows/ci.yml)
+[![CI](https://github.com/TFacund0/Clinicks-Desktop/actions/workflows/ci.yml/badge.svg)](https://github.com/TFacund0/Clinicks-Desktop/actions/workflows/ci.yml)
 [![.NET](https://img.shields.io/badge/.NET-v4.8-blueviolet.svg)](https://dotnet.microsoft.com/)
 [![C#](https://img.shields.io/badge/Language-C%23-blue.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-red.svg)](https://www.microsoft.com/en-us/sql-server/)
@@ -90,7 +90,7 @@ El sistema está dividido en 4 roles principales, cada uno con acceso restringid
 
 1.  **Clonar el repositorio**:
     ```bash
-    git clone https://github.com/TFacund0/Sistema-Hospitalario.git
+    git clone https://github.com/TFacund0/Clinicks-Desktop.git
     ```
 2.  **Base de Datos**:
     -   Importar el backup ubicado en `/database/Database-Backup/` en SQL Server.
