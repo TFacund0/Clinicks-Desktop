@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
@@ -75,17 +74,15 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
-                var esp = db.cama.FirstOrDefault(e => e.nro_habitacion == nroHabitacion && e.id_cama == nroCama) ;
-                if (esp == null) 
+                var cama = db.cama.FirstOrDefault(e => e.nro_habitacion == nroHabitacion && e.id_cama == nroCama);
+                if (cama == null)
                 {
-                    MessageBox.Show($"No se encontró la cama {nroCama} en la habitación {nroHabitacion}");
-                    return;
+                    // La capa de datos no interactúa con la UI: notifica el problema mediante una excepción.
+                    throw new InvalidOperationException($"No se encontró la cama {nroCama} en la habitación {nroHabitacion}.");
                 }
-                if (esp != null)
-                {
-                    db.cama.Remove(esp);
-                    db.SaveChanges();
-                }
+
+                db.cama.Remove(cama);
+                db.SaveChanges();
             }
         }
 

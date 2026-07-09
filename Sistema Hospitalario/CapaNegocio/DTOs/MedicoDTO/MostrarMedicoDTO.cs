@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO
+namespace Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO
 {
     /// <summary>
     /// DTO para la visualización de datos de médicos en grillas de administración.

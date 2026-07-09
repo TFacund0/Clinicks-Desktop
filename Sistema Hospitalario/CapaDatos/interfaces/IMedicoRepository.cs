@@ -1,6 +1,5 @@
 using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
 using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
 using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
 using System;
 using System.Collections.Generic;

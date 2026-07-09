@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
@@ -109,7 +109,6 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                         NombreUsuario = m.username,
                         Estado = m.estado_usuario.nombre,
                         Rol = m.rol.nombre,
-                        Password = m.password,
                         Correo = m.email
                     })
                     .ToList();

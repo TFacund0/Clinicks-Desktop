@@ -167,7 +167,12 @@
     <Compile Include="CapaNegocio\DTOs\CamaDTO\MostrarCamaDTO.cs" />
     <Compile Include="CapaNegocio\DTOs\ConsultaDTO\ConsultaAltaDTO.cs" />
     <Compile Include="CapaNegocio\DTOs\EspecialidadDTO\EspecialidadDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\EstadisticaDTO\EstadisticaDTO.cs" />
+    <Compile Include="CapaNegocio\DTOs\EstadisticasDTO\CamasDistribucionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\EstadisticasDTO\PacientesEstadosDistribucionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\EstadisticasDTO\PacientesPorDiaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\EstadisticasDTO\PacientesRegistradosPorDiaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\EstadisticasDTO\TurnosEstadosDistribucionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\EstadisticasDTO\TurnosPorDiaDto.cs" />
     <Compile Include="CapaNegocio\DTOs\HabitacionDTO\MostrarHabitacionDTO.cs" />
     <Compile Include="CapaNegocio\DTOs\HabitacionDTO\TiposHabitacionDTO.cs" />
     <Compile Include="CapaNegocio\DTOs\HistorialDTO\HistorialItemDto.cs" />
@@ -186,7 +191,8 @@
     <Compile Include="CapaNegocio\DTOs\ProcedimientoDTO\MostrarProcedimientoDTO.cs" />
     <Compile Include="CapaNegocio\DTOs\TurnoDTO\TurnoAgendaDto.cs" />
     <Compile Include="CapaNegocio\DTOs\UsuarioDTO\DatosLoginUsuarioDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\UsuarioDTO\UsuarioDTO.cs" />
+    <Compile Include="CapaNegocio\DTOs\UsuarioDTO\MostrarUsuariosDTO.cs" />
+    <Compile Include="CapaNegocio\DTOs\UsuarioDTO\UsuarioAltaDTO.cs" />
     <Compile Include="CapaNegocio\DTOs\UsuarioDTO\UsuarioLoginResultadoDTO.cs" />
     <Compile Include="CapaNegocio\Servicios\BackupService\BackupService.cs" />
     <Compile Include="CapaNegocio\Servicios\BackupService\Util\ConnectionHelper.cs" />

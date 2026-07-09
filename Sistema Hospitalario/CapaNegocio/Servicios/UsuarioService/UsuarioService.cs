@@ -139,12 +139,12 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// Elimina un usuario del sistema por su ID, con restricciones de seguridad para cuentas críticas.
         /// </summary>
         /// <param name="idUsuario">ID del usuario a eliminar.</param>
-        /// <exception cref="Exception">Se lanza si se intenta eliminar al Administrador principal (ID 1).</exception>
+        /// <exception cref="InvalidOperationException">Se lanza si se intenta eliminar al Administrador principal (ID 1).</exception>
         public void EliminarUsuario(int idUsuario)
         {
             if (idUsuario == 1)
             {
-                throw new Exception("No se puede eliminar al usuario Administrador principal.");
+                throw new InvalidOperationException("No se puede eliminar al usuario Administrador principal.");
             }
 
             _repo.Eliminar(idUsuario);

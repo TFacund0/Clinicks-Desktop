@@ -50,10 +50,6 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
                 {
                     dgvUsuarios.Columns["IdUsuario"].Visible = false;
                 }
-                if (dgvUsuarios.Columns["Password"] != null)
-                {
-                    dgvUsuarios.Columns["Password"].Visible = false;
-                }
             }
             catch (Exception ex)
             {
@@ -83,7 +79,6 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
             var tipoDelDto = typeof(MostrarUsuariosDTO);
             var propiedades = tipoDelDto.GetProperties();
             var listaDeNombres = propiedades.Select(p => p.Name)
-                                            .Where(name => name != "Password")
                                             .ToList();
             cboCampo.DataSource = listaDeNombres;
         }

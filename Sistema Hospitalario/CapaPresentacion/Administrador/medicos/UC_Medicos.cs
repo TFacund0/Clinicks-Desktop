@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
 using Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios;
 using System;
 using System.Collections.Generic;

@@ -82,7 +82,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         [TestMethod]
         public void EliminarUsuario_AdministradorPrincipal_LanzaExcepcion()
         {
-            Assert.ThrowsException<Exception>(() => _service.EliminarUsuario(1));
+            Assert.ThrowsException<InvalidOperationException>(() => _service.EliminarUsuario(1));
             _repoMock.Verify(r => r.Eliminar(It.IsAny<int>()), Times.Never);
         }
 
