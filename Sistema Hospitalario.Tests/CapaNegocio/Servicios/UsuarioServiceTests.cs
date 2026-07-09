@@ -196,5 +196,37 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
             Assert.AreEqual(2, resultado.Count);
             Assert.IsTrue(resultado.TrueForAll(u => u.NombreUsuario.StartsWith("jp")));
         }
+
+        [TestMethod]
+        public void ObtenerUsuarios_ConFiltroPorRol_DevuelveSoloEseRol()
+        {
+            _repoMock.Setup(r => r.ObtenerUsuarios()).Returns(new List<MostrarUsuariosDto>
+            {
+                new MostrarUsuariosDto { IdUsuario = 1, Rol = "Medico" },
+                new MostrarUsuariosDto { IdUsuario = 2, Rol = "Gerente" },
+                new MostrarUsuariosDto { IdUsuario = 3, Rol = "Medico" }
+            });
+
+            var resultado = _service.ObtenerUsuarios("Rol", "medico");
+
+            Assert.AreEqual(2, resultado.Count);
+        }
+
+        [TestMethod]
+        public void ObtenerUsuarios_SinValor_OrdenaPorElCampoIndicado()
+        {
+            _repoMock.Setup(r => r.ObtenerUsuarios()).Returns(new List<MostrarUsuariosDto>
+            {
+                new MostrarUsuariosDto { IdUsuario = 1, Apellido = "Zapata" },
+                new MostrarUsuariosDto { IdUsuario = 2, Apellido = "Alvarez" },
+                new MostrarUsuariosDto { IdUsuario = 3, Apellido = "Gomez" }
+            });
+
+            var resultado = _service.ObtenerUsuarios("Apellido");
+
+            CollectionAssert.AreEqual(
+                new[] { "Alvarez", "Gomez", "Zapata" },
+                resultado.ConvertAll(u => u.Apellido).ToArray());
+        }
     }
 }

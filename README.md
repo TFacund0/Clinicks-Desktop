@@ -106,7 +106,9 @@ El sistema está dividido en 4 roles principales, cada uno con acceso restringid
 El proyecto `Sistema Hospitalario.Tests` (MSTest + Moq) cubre la lógica de negocio sin necesidad de base de datos, gracias a la inyección de repositorios mockeados:
 
 -   **PasswordHasher**: formato PBKDF2, salt aleatorio, verificación de contraseñas correctas/incorrectas y compatibilidad con hashes legacy SHA-256.
--   **UsuarioService**: alta de usuarios (hashing y unicidad de username), validación de credenciales, migración automática de hashes legacy al iniciar sesión y reglas de negocio (no se puede eliminar al administrador principal).
+-   **UsuarioService**: alta de usuarios (hashing y unicidad de username), validación de credenciales, migración automática de hashes legacy al iniciar sesión, filtros/ordenamiento de listados y reglas de negocio (no se puede eliminar al administrador principal).
+-   **TurnoService**: conteo de turnos por estado (case-insensitive, pendientes solo del día) y validación de turnos duplicados por paciente/médico/fecha.
+-   **MedicoService**: filtros combinados de pacientes (nombre, apellido, DNI) y ordenamiento por apellido y nombre.
 
 Se ejecutan desde el **Test Explorer** de Visual Studio (`Ctrl+E, T` → Run All).
 
