@@ -71,5 +71,64 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
                 new[] { "Ana", "Juana", "Juan" },
                 resultado.Select(p => p.Nombre).ToArray());
         }
+
+        // ---------- RegistrarConsulta (validaciones previas a la BD) ----------
+
+        [TestMethod]
+        public void RegistrarConsulta_SinDni_DevuelveError()
+        {
+            var resultado = _service.RegistrarConsulta(new Sistema_Hospitalario.CapaNegocio.DTOs.Consultas.ConsultaAltaDto
+            {
+                DniPaciente = "  ",
+                Motivo = "Control"
+            }, idMedicoLogueado: 1);
+
+            Assert.IsFalse(resultado.Ok);
+            StringAssert.Contains(resultado.Error, "DNI");
+        }
+
+        [TestMethod]
+        public void RegistrarConsulta_SinMotivo_DevuelveError()
+        {
+            var resultado = _service.RegistrarConsulta(new Sistema_Hospitalario.CapaNegocio.DTOs.Consultas.ConsultaAltaDto
+            {
+                DniPaciente = "30111222",
+                Motivo = ""
+            }, idMedicoLogueado: 1);
+
+            Assert.IsFalse(resultado.Ok);
+            StringAssert.Contains(resultado.Error, "Motivo");
+        }
+
+        [TestMethod]
+        public void RegistrarConsulta_DniNoNumerico_DevuelveError()
+        {
+            var resultado = _service.RegistrarConsulta(new Sistema_Hospitalario.CapaNegocio.DTOs.Consultas.ConsultaAltaDto
+            {
+                DniPaciente = "3O111Z22",
+                Motivo = "Control"
+            }, idMedicoLogueado: 1);
+
+            Assert.IsFalse(resultado.Ok);
+            StringAssert.Contains(resultado.Error, "DNI");
+        }
+
+        // ---------- ObtenerMedicos ----------
+
+        [TestMethod]
+        public void ObtenerMedicos_ConFiltroPorNombre_DevuelveSoloCoincidencias()
+        {
+            _repoMock.Setup(r => r.ObtenerMedicos()).Returns(new List<Sistema_Hospitalario.CapaNegocio.DTOs.Medicos.MostrarMedicoDto>
+            {
+                new Sistema_Hospitalario.CapaNegocio.DTOs.Medicos.MostrarMedicoDto { IdMedico = 1, Nombre = "Carlos" },
+                new Sistema_Hospitalario.CapaNegocio.DTOs.Medicos.MostrarMedicoDto { IdMedico = 2, Nombre = "Carla" },
+                new Sistema_Hospitalario.CapaNegocio.DTOs.Medicos.MostrarMedicoDto { IdMedico = 3, Nombre = "Pedro" }
+            });
+
+            var resultado = _service.ObtenerMedicos("Nombre", "car");
+
+            Assert.AreEqual(2, resultado.Count);
+            Assert.IsTrue(resultado.All(m => m.Nombre.ToLower().StartsWith("car")));
+        }
     }
 }

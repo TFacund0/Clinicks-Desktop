@@ -228,5 +228,22 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
                 new[] { "Alvarez", "Gomez", "Zapata" },
                 resultado.ConvertAll(u => u.Apellido).ToArray());
         }
+
+        [TestMethod]
+        public void ObtenerConteoUsuariosPorRol_AgrupaYCuentaCorrectamente()
+        {
+            _repoMock.Setup(r => r.ObtenerUsuarios()).Returns(new List<MostrarUsuariosDto>
+            {
+                new MostrarUsuariosDto { IdUsuario = 1, Rol = "medico" },
+                new MostrarUsuariosDto { IdUsuario = 2, Rol = "medico" },
+                new MostrarUsuariosDto { IdUsuario = 3, Rol = "gerente" }
+            });
+
+            var conteos = _service.ObtenerConteoUsuariosPorRol();
+
+            Assert.AreEqual(2, conteos["medico"]);
+            Assert.AreEqual(1, conteos["gerente"]);
+            Assert.AreEqual(2, conteos.Count);
+        }
     }
 }
