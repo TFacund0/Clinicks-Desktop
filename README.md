@@ -35,6 +35,7 @@ Los servicios de la capa de negocio reciben sus repositorios por **inyección de
 -   **Base de Datos**: Microsoft SQL Server
 -   **Gráficos**: LiveCharts (para el módulo de estadísticas)
 -   **Seguridad**: Hashing de contraseñas con **PBKDF2** (salt aleatorio + 100.000 iteraciones), con migración transparente de los hashes legacy SHA-256 al iniciar sesión
+-   **Testing**: **MSTest + Moq** — tests unitarios de la capa de negocio con repositorios mockeados
 
 ---
 
@@ -97,6 +98,17 @@ El sistema está dividido en 4 roles principales, cada uno con acceso restringid
     -   Abrir `Sistema Hospitalario.sln` en Visual Studio (2019 o superior).
     -   Restaurar paquetes NuGet.
     -   Ejecutar el proyecto.
+
+---
+
+## 🧪 Tests
+
+El proyecto `Sistema Hospitalario.Tests` (MSTest + Moq) cubre la lógica de negocio sin necesidad de base de datos, gracias a la inyección de repositorios mockeados:
+
+-   **PasswordHasher**: formato PBKDF2, salt aleatorio, verificación de contraseñas correctas/incorrectas y compatibilidad con hashes legacy SHA-256.
+-   **UsuarioService**: alta de usuarios (hashing y unicidad de username), validación de credenciales, migración automática de hashes legacy al iniciar sesión y reglas de negocio (no se puede eliminar al administrador principal).
+
+Se ejecutan desde el **Test Explorer** de Visual Studio (`Ctrl+E, T` → Run All).
 
 ---
 

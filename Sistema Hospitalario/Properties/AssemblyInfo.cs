@@ -31,3 +31,6 @@ using System.Runtime.InteropServices;
 //
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// Permite al proyecto de tests acceder a los miembros internal (ej. UsuarioService.ValidarCredenciales)
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Sistema Hospitalario.Tests")]
