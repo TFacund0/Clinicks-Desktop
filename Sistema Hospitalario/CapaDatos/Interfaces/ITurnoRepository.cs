@@ -73,5 +73,24 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="fecha">Fecha a verificar.</param>
         /// <returns>True si existe una colisión.</returns>
         bool ExisteTurnoMismoDiaMismoMedicoPacienteExcluyendo(int idTurnoExcluir, int idPaciente, int idMedico, DateTime fecha);
+
+        /// <summary>
+        /// Obtiene el listado general de turnos para su visualización en grillas.
+        /// </summary>
+        /// <returns>Lista de <see cref="ListadoTurno"/>.</returns>
+        List<ListadoTurno> ListadoTurnos();
+
+        /// <summary>
+        /// Obtiene el detalle completo de un turno específico.
+        /// </summary>
+        /// <param name="id_turno">Identificador único del turno.</param>
+        /// <returns>Objeto <see cref="TurnoDto"/> con el detalle.</returns>
+        TurnoDto ObtenerDetalle(int id_turno);
+
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de un turno.
+        /// </summary>
+        /// <returns>Lista de <see cref="ListadoEstadoTurno"/>.</returns>
+        List<ListadoEstadoTurno> ListarEstadosTurno();
     }
 }

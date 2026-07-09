@@ -38,5 +38,11 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="NroCama">Número de cama.</param>
         /// <param name="NuevoEstadoId">ID del nuevo estado (ej. Disponible, Ocupada, Mantenimiento).</param>
         void CambiarEstado(int NroHabitacion, int NroCama, int NuevoEstadoId);
+
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de una cama.
+        /// </summary>
+        /// <returns>Lista de entidades <see cref="estado_cama"/>.</returns>
+        List<estado_cama> GetEstadosCama();
     }
 }

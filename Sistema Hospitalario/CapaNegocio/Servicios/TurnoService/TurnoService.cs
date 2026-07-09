@@ -17,20 +17,21 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.TurnoService
     /// </summary>
     public class TurnoService
     {
-        private readonly TurnoRepository _repo = new TurnoRepository();
+        private readonly ITurnoRepository _repo;
+
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TurnoService"/> con un repositorio específico.
+        /// Inicializa una nueva instancia de la clase <see cref="TurnoService"/> con un repositorio inyectado (útil para pruebas).
         /// </summary>
-        /// <param name="repo">Repositorio de turnos inyectado.</param>
-        public TurnoService(TurnoRepository repo)
+        /// <param name="repo">Instancia del repositorio de turnos.</param>
+        public TurnoService(ITurnoRepository repo)
         {
-            _repo = repo;
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TurnoService"/> usando el repositorio por defecto.
         /// </summary>
-        public TurnoService()
+        public TurnoService() : this(new TurnoRepository())
         {
         }
 

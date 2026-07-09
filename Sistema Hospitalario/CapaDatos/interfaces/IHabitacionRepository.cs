@@ -31,5 +31,11 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="nroPiso">Número de piso.</param>
         /// <param name="NroHabitacion">Número de la habitación.</param>
         void Eliminar(int nroPiso, int NroHabitacion);
+
+        /// <summary>
+        /// Obtiene el catálogo de tipos de habitación disponibles.
+        /// </summary>
+        /// <returns>Lista de <see cref="TiposHabitacionDTO"/>.</returns>
+        List<TiposHabitacionDTO> ListarTiposHabitacion();
     }
 }

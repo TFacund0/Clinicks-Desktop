@@ -29,5 +29,11 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// </summary>
         /// <param name="nombre">Nombre del procedimiento a eliminar.</param>
         void Eliminar(string nombre);
+
+        /// <summary>
+        /// Obtiene el listado de procedimientos en formato simple (ID y nombre).
+        /// </summary>
+        /// <returns>Lista de <see cref="ProcedimientoDto"/>.</returns>
+        List<ProcedimientoDto> ListarProcedimientos();
     }
 }

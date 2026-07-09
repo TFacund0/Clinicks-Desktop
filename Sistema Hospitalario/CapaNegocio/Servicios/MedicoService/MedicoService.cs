@@ -22,11 +22,19 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         private readonly IMedicoRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MedicoService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="MedicoService"/> con el repositorio por defecto.
         /// </summary>
-        public MedicoService()
+        public MedicoService() : this(new MedicoRepository())
         {
-            _repo = new MedicoRepository();
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="MedicoService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de médicos.</param>
+        public MedicoService(IMedicoRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

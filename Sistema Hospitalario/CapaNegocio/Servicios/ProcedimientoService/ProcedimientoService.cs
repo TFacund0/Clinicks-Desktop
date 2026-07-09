@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 using Sistema_Hospitalario.CapaNegocio.DTOs.ProcedimientoDTO;
 
@@ -15,13 +16,22 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.ProcedimientoService
     /// </summary>
     public class ProcedimientoService
     {
-        private readonly ProcedimientoRepository _repo = new ProcedimientoRepository();
+        private readonly IProcedimientoRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ProcedimientoService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="ProcedimientoService"/> con el repositorio por defecto.
         /// </summary>
-        public ProcedimientoService()
+        public ProcedimientoService() : this(new ProcedimientoRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ProcedimientoService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de procedimientos.</param>
+        public ProcedimientoService(IProcedimientoRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO;
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
@@ -16,13 +17,22 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
     /// </summary>
     public class HabitacionService
     {
-        private readonly HabitacionRepository _repo = new HabitacionRepository();
+        private readonly IHabitacionRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="HabitacionService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="HabitacionService"/> con el repositorio por defecto.
         /// </summary>
-        public HabitacionService()
+        public HabitacionService() : this(new HabitacionRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="HabitacionService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de habitaciones.</param>
+        public HabitacionService(IHabitacionRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

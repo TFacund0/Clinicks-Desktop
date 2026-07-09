@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
 {
@@ -11,7 +12,7 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
     /// Repositorio especializado en la extracción de métricas y datos agregados para reportes y tableros.
     /// Proporciona conteos y distribuciones de pacientes, camas y turnos.
     /// </summary>
-    public class EstadisticasRepository
+    public class EstadisticasRepository : IEstadisticasRepository
     {
         /// <summary>
         /// Cuenta la cantidad de pacientes que se registraron en una fecha específica y tienen un estado determinado.
