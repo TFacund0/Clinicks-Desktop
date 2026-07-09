@@ -2,6 +2,7 @@
 
 [<img src="https://img.shields.io/badge/Descargar-Ejecutable_v1.0-orange?style=for-the-badge&logo=windows" />](https://github.com/TFacund0/Sistema-Hospitalario/releases/tag/v1.0)
 
+[![CI](https://github.com/TFacund0/Sistema-Hospitalario/actions/workflows/ci.yml/badge.svg)](https://github.com/TFacund0/Sistema-Hospitalario/actions/workflows/ci.yml)
 [![.NET](https://img.shields.io/badge/.NET-v4.8-blueviolet.svg)](https://dotnet.microsoft.com/)
 [![C#](https://img.shields.io/badge/Language-C%23-blue.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-red.svg)](https://www.microsoft.com/en-us/sql-server/)
@@ -114,6 +115,10 @@ El proyecto `Sistema Hospitalario.Tests` (MSTest + Moq) cubre la lógica de nego
 -   **EstadisticasService**: series semanales completas (7 días, con ceros en días sin datos) y distribución de camas.
 
 Se ejecutan desde el **Test Explorer** de Visual Studio (`Ctrl+E, T` → Run All).
+
+### Integración Continua
+
+Cada push y pull request a `master` dispara un workflow de **GitHub Actions** ([ci.yml](.github/workflows/ci.yml)) que compila la solución en Release y ejecuta la suite completa de tests en un runner de Windows. El badge al inicio del README refleja el estado del último build.
 
 ---
 

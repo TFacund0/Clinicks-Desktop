@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-test:
+    name: Build y Tests
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configurar NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Restaurar paquetes NuGet
+        run: nuget restore "Sistema Hospitalario.sln"
+
+      - name: Compilar la solución
+        run: msbuild "Sistema Hospitalario.sln" /t:Build /p:Configuration=Release /v:minimal /nologo
+
+      - name: Ejecutar tests unitarios
+        shell: pwsh
+        run: |
+          $vstest = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -find "Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
+          & $vstest "Sistema Hospitalario.Tests\bin\Release\net472\Sistema Hospitalario.Tests.dll" /Logger:"trx;LogFileName=resultados.trx"
+
+      - name: Publicar resultados de tests
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultados-tests
+          path: TestResults/*.trx
