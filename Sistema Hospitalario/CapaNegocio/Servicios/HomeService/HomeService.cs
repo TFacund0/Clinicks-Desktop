@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.HomeDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Home;
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.HomeService
@@ -16,13 +17,22 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HomeService
     /// </summary>
     public class HomeService
     {
-        private readonly HomeRepository _repo = new HomeRepository();
+        private readonly IHomeRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="HomeService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="HomeService"/> con el repositorio por defecto.
         /// </summary>
-        public HomeService()
+        public HomeService() : this(new HomeRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="HomeService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de inicio.</param>
+        public HomeService(IHomeRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

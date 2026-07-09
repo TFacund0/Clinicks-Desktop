@@ -1,11 +1,11 @@
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Camas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService.CamaService
 {
@@ -15,20 +15,29 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService.CamaServi
     /// </summary>
     public class CamaService
     {
-        private readonly CamaRepository _repo = new CamaRepository();
+        private readonly ICamaRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="CamaService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="CamaService"/> con el repositorio por defecto.
         /// </summary>
-        public CamaService()
+        public CamaService() : this(new CamaRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CamaService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de camas.</param>
+        public CamaService(ICamaRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
         /// Obtiene el listado completo de todas las camas registradas en el sistema.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarCamaDTO"/>.</returns>
-        public List<MostrarCamaDTO> ObtenerCamas()
+        /// <returns>Lista de <see cref="MostrarCamaDto"/>.</returns>
+        public List<MostrarCamaDto> ObtenerCamas()
         {
             return _repo.GetAll();
         }

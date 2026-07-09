@@ -1,7 +1,7 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Consultas;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,8 +35,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene la lista de médicos formateada para visualización en grillas.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarMedicoDTO"/>.</returns>
-        List<MostrarMedicoDTO> ObtenerMedicos();
+        /// <returns>Lista de <see cref="MostrarMedicoDto"/>.</returns>
+        List<MostrarMedicoDto> ObtenerMedicos();
         /// <summary>
         /// Obtiene un listado básico de médicos.
         /// </summary>
@@ -45,8 +45,16 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Registra una nueva consulta médica en la base de datos.
         /// </summary>
-        /// <param name="consulta">Entidad consulta con los datos a persistir.</param>
-        void InsertarConsulta(Consulta consulta);
+        /// <param name="consulta">DTO con los datos de la consulta.</param>
+        /// <param name="idMedico">ID del médico que realiza la consulta.</param>
+        /// <param name="idPaciente">ID del paciente atendido.</param>
+        void InsertarConsulta(ConsultaAltaDto consulta, int idMedico, int idPaciente);
+        /// <summary>
+        /// Busca el ID de un paciente a partir de su número de DNI.
+        /// </summary>
+        /// <param name="dni">DNI del paciente.</param>
+        /// <returns>El ID del paciente, o <c>null</c> si no existe.</returns>
+        int? ObtenerIdPacientePorDni(int dni);
         /// <summary>
         /// Obtiene la lista de pacientes asociados a los procesos de un médico, filtrable por fecha de turno.
         /// </summary>

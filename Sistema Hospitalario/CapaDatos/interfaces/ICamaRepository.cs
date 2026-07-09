@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Camas;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
 {
@@ -15,8 +15,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene el listado de todas las camas registradas con su estado de disponibilidad actual.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarCamaDTO"/>.</returns>
-        List<MostrarCamaDTO> GetAll();
+        /// <returns>Lista de <see cref="MostrarCamaDto"/>.</returns>
+        List<MostrarCamaDto> GetAll();
 
         /// <summary>
         /// Registra una nueva cama en una habitación específica.
@@ -38,5 +38,11 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="NroCama">Número de cama.</param>
         /// <param name="NuevoEstadoId">ID del nuevo estado (ej. Disponible, Ocupada, Mantenimiento).</param>
         void CambiarEstado(int NroHabitacion, int NroCama, int NuevoEstadoId);
+
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de una cama.
+        /// </summary>
+        /// <returns>Lista de entidades <see cref="estado_cama"/>.</returns>
+        List<estado_cama> GetEstadosCama();
     }
 }

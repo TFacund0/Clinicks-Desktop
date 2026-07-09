@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,10 +50,6 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
                 {
                     dgvUsuarios.Columns["IdUsuario"].Visible = false;
                 }
-                if (dgvUsuarios.Columns["Password"] != null)
-                {
-                    dgvUsuarios.Columns["Password"].Visible = false;
-                }
             }
             catch (Exception ex)
             {
@@ -80,10 +76,9 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
         // Carga de campos del DTO en el ComboBox para ordenamiento
         private void CargarComboOrdenamiento()
         {
-            var tipoDelDto = typeof(MostrarUsuariosDTO);
+            var tipoDelDto = typeof(MostrarUsuariosDto);
             var propiedades = tipoDelDto.GetProperties();
             var listaDeNombres = propiedades.Select(p => p.Name)
-                                            .Where(name => name != "Password")
                                             .ToList();
             cboCampo.DataSource = listaDeNombres;
         }

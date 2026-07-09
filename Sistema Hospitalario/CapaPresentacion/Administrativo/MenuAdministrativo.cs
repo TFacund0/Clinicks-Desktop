@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 using Sistema_Hospitalario.CapaPresentacion.Administrativo.Hospitalización;
 using Sistema_Hospitalario.CapaPresentacion.Administrativo.Pacientes;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.TurnoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Turnos;
 using System.Linq.Expressions;
-using Sistema_Hospitalario.CapaNegocio.DTOs.InternacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Internaciones;
 
 namespace Sistema_Hospitalario.CapaPresentacion.Administrativo
 {

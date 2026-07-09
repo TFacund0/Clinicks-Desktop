@@ -1,5 +1,5 @@
 using Sistema_Hospitalario.CapaNegocio;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ConsultaDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Consultas;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 using System;
 using System.Collections.Generic;
@@ -155,7 +155,7 @@ namespace Sistema_Hospitalario.CapaPresentacion.Medico.Pacientes
             try
             {
                 // 1. Recolectamos los datos del formulario
-                var dto = new ConsultaAltaDTO
+                var dto = new ConsultaAltaDto
                 {
                     DniPaciente = txtDniPaciente.Text.Trim(),
                     Fecha = dtpFecha.Value,

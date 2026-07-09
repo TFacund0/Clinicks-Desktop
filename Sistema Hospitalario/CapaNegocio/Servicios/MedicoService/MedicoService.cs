@@ -1,11 +1,10 @@
 using Sistema_Hospitalario.CapaDatos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ConsultaDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Consultas;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +21,19 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         private readonly IMedicoRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MedicoService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="MedicoService"/> con el repositorio por defecto.
         /// </summary>
-        public MedicoService()
+        public MedicoService() : this(new MedicoRepository())
         {
-            _repo = new MedicoRepository();
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="MedicoService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de médicos.</param>
+        public MedicoService(IMedicoRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
@@ -79,7 +86,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         /// <param name="dto">DTO con los datos de la consulta.</param>
         /// <param name="idMedicoLogueado">ID del médico que realiza la consulta.</param>
         /// <returns>Una tupla con el estado de éxito y un mensaje de error si falla.</returns>
-        public (bool Ok, string Error) RegistrarConsulta(ConsultaAltaDTO dto, int idMedicoLogueado)
+        public (bool Ok, string Error) RegistrarConsulta(ConsultaAltaDto dto, int idMedicoLogueado)
         {
             try
             {
@@ -94,35 +101,16 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
                 if (!int.TryParse(dto.DniPaciente, out int dniPacienteNum))
                     return (false, "El formato del DNI es incorrecto (debe ser numérico).");
 
-                // Buscamos al paciente en la BD
-                paciente pacienteEncontrado;
-                using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
-                {
-                    // Usamos 'FirstOrDefault' que es seguro
-                    pacienteEncontrado = db.paciente.FirstOrDefault(p => p.dni == dniPacienteNum);
-                }
+                // Buscamos al paciente a través del repositorio
+                int? idPaciente = _repo.ObtenerIdPacientePorDni(dniPacienteNum);
 
-                // Verificación 1: ¿Existe el paciente?
-                if (pacienteEncontrado == null)
+                if (idPaciente == null)
                 {
                     return (false, $"No se encontró ningún paciente con el DNI {dto.DniPaciente}.");
                 }
 
-                // --- CREACIÓN DEL OBJETO ---
-                var nuevaConsulta = new Sistema_Hospitalario.CapaDatos.Consulta
-                {
-                    motivo = dto.Motivo,
-                    diagnostico = dto.Diagnostico,
-                    tratamiento = dto.Tratamiento,
-                    fecha_consulta = dto.Fecha,
-
-                    // Asignamos las llaves
-                    id_medico = idMedicoLogueado,
-                    id_paciente = pacienteEncontrado.id_paciente
-                };
-
                 // --- GUARDADO ---
-                _repo.InsertarConsulta(nuevaConsulta);
+                _repo.InsertarConsulta(dto, idMedicoLogueado, idPaciente.Value);
 
                 return (true, null); // ¡Éxito!
             }
@@ -137,11 +125,11 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         /// <param name="campo">Nombre del campo por el cual filtrar (Nombre, Apellido, DNI, etc.).</param>
         /// <param name="valor">Valor a buscar en el campo especificado.</param>
         /// <returns>Lista de médicos filtrada y ordenada según el campo especificado.</returns>
-        public List<MostrarMedicoDTO> ObtenerMedicos(string campo = null, string valor = null)
+        public List<MostrarMedicoDto> ObtenerMedicos(string campo = null, string valor = null)
         {
             var listaCompleta = _repo.ObtenerMedicos();
 
-            List<MostrarMedicoDTO> resultado;
+            List<MostrarMedicoDto> resultado;
 
             // FILTRAMOS SI HAY VALOR
             if (!string.IsNullOrEmpty(valor))
@@ -256,14 +244,14 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         /// <summary>
         /// Obtiene una lista simplificada de médicos optimizada para mostrar en controles de selección (ComboBox).
         /// </summary>
-        /// <returns>Lista de <see cref="MedicoSimpleDTO"/> con nombre formateado y DNI.</returns>
-        public List<MedicoSimpleDTO> ObtenerMedicosParaComboBox()
+        /// <returns>Lista de <see cref="MedicoSimpleDto"/> con nombre formateado y DNI.</returns>
+        public List<MedicoSimpleDto> ObtenerMedicosParaComboBox()
         {
             var todosLosMedicos = _repo.ObtenerMedicos();
 
             var resultado = todosLosMedicos
                             .OrderBy(m => m.Apellido).ThenBy(m => m.Nombre).ThenBy(m => m.DNI)
-                            .Select(m => new MedicoSimpleDTO
+                            .Select(m => new MedicoSimpleDto
                             {
                                 Id = m.IdMedico,
                                 NombreCompletoYDNI = $"{m.Apellido}, {m.Nombre} ({m.DNI}) esp:{m.Especialidad}"

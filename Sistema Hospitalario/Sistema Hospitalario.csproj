@@ -164,30 +164,36 @@
     <Compile Include="CapaDatos\usuario.cs">
       <DependentUpon>Sistema_Hospitalario_BDD.tt</DependentUpon>
     </Compile>
-    <Compile Include="CapaNegocio\DTOs\CamaDTO\MostrarCamaDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\ConsultaDTO\ConsultaAltaDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\EspecialidadDTO\EspecialidadDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\EstadisticaDTO\EstadisticaDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\HabitacionDTO\MostrarHabitacionDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\HabitacionDTO\TiposHabitacionDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\HistorialDTO\HistorialItemDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\MedicoDTO\MedicoSimpleDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\MedicoDTO\MostrarMedicoDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\CamaDTO\CamaDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\HabitacionDTO\HabitacionDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\HomeDTO\HomeDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\InternacionDTO\InternacionDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\MedicoDTO\MedicoDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\PacienteDTO\EstadoPacienteDTO\EstadoPacienteDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\PacienteDTO\PacienteAltaDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\PacienteDTO\PacienteEdicionDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\PacienteDTO\PacienteListadoMedicoDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\PacienteDTO\PacienteViewDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\ProcedimientoDTO\MostrarProcedimientoDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\TurnoDTO\TurnoAgendaDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\UsuarioDTO\DatosLoginUsuarioDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\UsuarioDTO\UsuarioDTO.cs" />
-    <Compile Include="CapaNegocio\DTOs\UsuarioDTO\UsuarioLoginResultadoDTO.cs" />
+    <Compile Include="CapaNegocio\DTOs\Camas\MostrarCamaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Consultas\ConsultaAltaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Especialidades\EspecialidadDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Estadisticas\CamasDistribucionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Estadisticas\PacientesEstadosDistribucionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Estadisticas\PacientesPorDiaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Estadisticas\PacientesRegistradosPorDiaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Estadisticas\TurnosEstadosDistribucionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Estadisticas\TurnosPorDiaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Habitaciones\MostrarHabitacionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Habitaciones\TiposHabitacionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Historiales\HistorialItemDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Medicos\MedicoSimpleDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Medicos\MostrarMedicoDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Camas\CamaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Habitaciones\HabitacionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Home\HomeDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Internaciones\InternacionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Medicos\MedicoDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Pacientes\EstadoPacienteDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Pacientes\PacienteAltaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Pacientes\PacienteEdicionDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Pacientes\PacienteListadoMedicoDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Pacientes\PacienteViewDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Procedimientos\MostrarProcedimientoDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Turnos\TurnoAgendaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Usuarios\DatosLoginUsuarioDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Usuarios\MostrarUsuariosDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Usuarios\UsuarioAltaDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Usuarios\UsuarioLoginResultadoDto.cs" />
     <Compile Include="CapaNegocio\Servicios\BackupService\BackupService.cs" />
     <Compile Include="CapaNegocio\Servicios\BackupService\Util\ConnectionHelper.cs" />
     <Compile Include="CapaNegocio\Servicios\EstadisticasService\EstadisticasService.cs" />
@@ -195,6 +201,9 @@
     <Compile Include="CapaNegocio\Servicios\EspecialidadService\EspecialidadService.cs" />
     <Compile Include="CapaNegocio\Servicios\ProcedimientoService\ProcedimientoService.cs" />
     <Compile Include="CapaNegocio\Servicios\UsuarioService\UsuarioService.cs" />
+    <Compile Include="CapaDatos\Interfaces\IEstadisticasRepository.cs" />
+    <Compile Include="CapaNegocio\DTOs\Comunes\CatalogoItemDto.cs" />
+    <Compile Include="CapaNegocio\Seguridad\PasswordHasher.cs" />
     <Compile Include="CapaNegocio\SesionUsuario.cs" />
     <Compile Include="CapaPresentacion\Administrador\Backup\UC_AdminBackups.cs">
       <SubType>UserControl</SubType>
@@ -214,8 +223,8 @@
     <Compile Include="CapaPresentacion\Administrador\Medicos\UC_Medicos.Designer.cs">
       <DependentUpon>UC_Medicos.cs</DependentUpon>
     </Compile>
-    <Compile Include="CapaNegocio\DTOs\ProcedimientoDTO\ProcedimientoDto.cs" />
-    <Compile Include="CapaNegocio\DTOs\TurnoDTO\TurnoDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Procedimientos\ProcedimientoDto.cs" />
+    <Compile Include="CapaNegocio\DTOs\Turnos\TurnoDto.cs" />
     <Compile Include="CapaNegocio\Servicios\HabitacionService\CamaService\CamaService.cs" />
     <Compile Include="CapaNegocio\Servicios\HabitacionService\HabitacionService.cs" />
     <Compile Include="CapaNegocio\Servicios\HomeService\HomeService.cs" />
@@ -379,7 +388,6 @@
     <Compile Include="CapaPresentacion\Medico\MenuMedicos.Designer.cs">
       <DependentUpon>MenuMedicos.cs</DependentUpon>
     </Compile>
-    <Compile Include="CapaPresentacion\Medico\Paciente.cs" />
     <Compile Include="CapaPresentacion\Medico\Pacientes\UC_DetallePaciente.cs">
       <SubType>UserControl</SubType>
     </Compile>

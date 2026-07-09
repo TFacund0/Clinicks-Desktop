@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService;
 
@@ -45,29 +45,19 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
         // Carga de roles en el ComboBox
         private void CargarRoles()
         {
-            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
-            {
-                var roles = db.rol
-                              .Select(r => new { IdRol = r.id_rol, NombreRol = r.nombre })
-                              .ToList();
-                cboRol.DisplayMember = "NombreRol";
-                cboRol.ValueMember = "IdRol";
-                cboRol.DataSource = roles;
-            }
+            var roles = _service.ListarRoles();
+            cboRol.DisplayMember = "Nombre";
+            cboRol.ValueMember = "Id";
+            cboRol.DataSource = roles;
         }
 
         // Carga de estados en el ComboBox
         private void CargarEstados()
         {
-            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
-            {
-                var estados = db.estado_usuario
-                                .Select(e => new { IdEstado = e.id_estado_usuario, NombreEstado = e.nombre })
-                                .ToList();
-                cboEstado.DisplayMember = "NombreEstado";
-                cboEstado.ValueMember = "IdEstado";
-                cboEstado.DataSource = estados;
-            }
+            var estados = _service.ListarEstadosUsuario();
+            cboEstado.DisplayMember = "Nombre";
+            cboEstado.ValueMember = "Id";
+            cboEstado.DataSource = estados;
         }
 
         // Carga de médicos en el ComboBox
@@ -264,7 +254,7 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
                 }
 
                 // Crear el DTO de alta
-                UsuarioAltaDTO nuevoUsuario = new UsuarioAltaDTO
+                UsuarioAltaDto nuevoUsuario = new UsuarioAltaDto
                 {
                     Nombre = TBNOMBRE.Text.Trim(),
                     Apellido = TBAPELLIDO.Text.Trim(),

@@ -1,6 +1,6 @@
 using Sistema_Hospitalario.CapaDatos.Repositories;
 using Sistema_Hospitalario.CapaNegocio;
-using Sistema_Hospitalario.CapaNegocio.DTOs.TurnoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Turnos;
 using Sistema_Hospitalario.CapaNegocio.Servicios.TurnoService;
 using Sistema_Hospitalario.CapaPresentacion.Medico.Turnos;
 using System;

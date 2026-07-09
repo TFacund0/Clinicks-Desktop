@@ -1,7 +1,7 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ProcedimientoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.TurnoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Procedimientos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Turnos;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.ProcedimientoService;

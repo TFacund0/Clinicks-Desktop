@@ -171,7 +171,7 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.misceláneo
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error al eliminar la especialidad: " + ex.Message);
+                        MessageBox.Show("Error al eliminar la cama: " + ex.Message);
                     }
                 }
             }

@@ -1,5 +1,6 @@
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.EstadisticasDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Estadisticas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,22 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.EstadisticasService
     /// </summary>
     public class EstadisticasService
     {
-        private readonly EstadisticasRepository _repo;
+        private readonly IEstadisticasRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EstadisticasService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="EstadisticasService"/> con el repositorio por defecto.
         /// </summary>
-        public EstadisticasService()
+        public EstadisticasService() : this(new EstadisticasRepository())
         {
-            _repo = new EstadisticasRepository();
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="EstadisticasService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de estadísticas.</param>
+        public EstadisticasService(IEstadisticasRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

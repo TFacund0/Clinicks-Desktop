@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.InternacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Internaciones;
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.InternacionService
@@ -15,13 +16,22 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.InternacionService
     /// </summary>
     public class InternacionService
     {
-        private readonly InternacionRepository _repo = new InternacionRepository();
+        private readonly IInternacionRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InternacionService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="InternacionService"/> con el repositorio por defecto.
         /// </summary>
-        public InternacionService()
+        public InternacionService() : this(new InternacionRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InternacionService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de internaciones.</param>
+        public InternacionService(IInternacionRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

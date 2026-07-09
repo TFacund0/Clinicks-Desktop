@@ -1,5 +1,5 @@
 using Sistema_Hospitalario.CapaNegocio;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService;
 using Sistema_Hospitalario.CapaPresentacion.Administrador;
 using Sistema_Hospitalario.CapaPresentacion.Administrativo;
@@ -49,7 +49,7 @@ namespace WindowsFormsInicio_de_sesion
             try
             {
                 // ================== 1) Usuarios reales en BD ==================
-                UsuarioLoginResultadoDTO resultadoLogin = _usuarioService.ValidarCredenciales(usuario, contraseña);
+                UsuarioLoginResultadoDto resultadoLogin = _usuarioService.ValidarCredenciales(usuario, contraseña);
 
                 // Si el servicio devuelve null o LoginExitoso == false, credenciales inválidas
                 if (resultadoLogin == null || !resultadoLogin.LoginExitoso)

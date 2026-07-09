@@ -1,5 +1,5 @@
 using Sistema_Hospitalario.CapaNegocio;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 using Sistema_Hospitalario.CapaPresentacion.Medico.Pacientes;
 using System;

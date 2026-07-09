@@ -1,5 +1,5 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.InternacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Internaciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +37,11 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="id_internacion">ID de la internación a modificar.</param>
         /// <param name="internacion">DTO con los datos actualizados.</param>
         void Actualizar(int id_internacion, InternacionDto internacion);
+
+        /// <summary>
+        /// Finaliza una internación registrando el egreso del paciente y liberando la cama asignada.
+        /// </summary>
+        /// <param name="dto">DTO con los datos del egreso.</param>
+        void FinalizarInternacion(FinalizarInternacionDto dto);
     }
 }

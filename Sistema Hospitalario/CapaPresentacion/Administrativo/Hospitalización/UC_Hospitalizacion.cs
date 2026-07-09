@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.InternacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Internaciones;
 using Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService.CamaService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.InternacionService;

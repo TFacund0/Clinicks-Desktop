@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.EspecialidadDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Especialidades;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.EspecialidadService
 {
@@ -15,20 +16,29 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.EspecialidadService
     /// </summary>
     public class EspecialidadService
     {
-        private readonly EspecialidadRepository _repo = new EspecialidadRepository();
+        private readonly IEspecialidadRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EspecialidadService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="EspecialidadService"/> con el repositorio por defecto.
         /// </summary>
-        public EspecialidadService()
+        public EspecialidadService() : this(new EspecialidadRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="EspecialidadService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de especialidades.</param>
+        public EspecialidadService(IEspecialidadRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
         /// Obtiene el listado completo de todas las especialidades médicas registradas.
         /// </summary>
-        /// <returns>Lista de <see cref="EspecialidadDTO"/>.</returns>
-        public List<EspecialidadDTO> ObtenerEspecialidades()
+        /// <returns>Lista de <see cref="EspecialidadDto"/>.</returns>
+        public List<EspecialidadDto> ObtenerEspecialidades()
         {
             return _repo.GetAll();
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.EspecialidadDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Especialidades;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
 {
@@ -15,8 +15,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene el listado completo de todas las especialidades registradas.
         /// </summary>
-        /// <returns>Lista de <see cref="EspecialidadDTO"/>.</returns>
-        List<EspecialidadDTO> GetAll();
+        /// <returns>Lista de <see cref="EspecialidadDto"/>.</returns>
+        List<EspecialidadDto> GetAll();
 
         /// <summary>
         /// Registra una nueva especialidad en la base de datos.

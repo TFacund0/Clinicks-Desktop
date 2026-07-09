@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
 using Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios;
 using System;
 using System.Collections.Generic;
@@ -72,7 +72,7 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.medicos
         private void CargarComboOrdenamiento()
         {
  
-            var tipoDelDto = typeof(MostrarMedicoDTO);
+            var tipoDelDto = typeof(MostrarMedicoDto);
             var propiedades = tipoDelDto.GetProperties();
             var listaDeNombres = propiedades.Select(p => p.Name).ToList();
             cboCampo.DataSource = listaDeNombres;

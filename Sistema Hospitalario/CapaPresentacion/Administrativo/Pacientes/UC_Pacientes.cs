@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sistema_Hospitalario.CapaNegocio.DTOs;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService;
 
 namespace Sistema_Hospitalario.CapaPresentacion.Administrativo

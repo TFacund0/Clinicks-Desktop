@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Habitaciones;
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
@@ -16,20 +17,29 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
     /// </summary>
     public class HabitacionService
     {
-        private readonly HabitacionRepository _repo = new HabitacionRepository();
+        private readonly IHabitacionRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="HabitacionService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="HabitacionService"/> con el repositorio por defecto.
         /// </summary>
-        public HabitacionService()
+        public HabitacionService() : this(new HabitacionRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="HabitacionService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de habitaciones.</param>
+        public HabitacionService(IHabitacionRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
         /// Obtiene el listado completo de todas las habitaciones con su información detallada.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarHabitacionDTO"/>.</returns>
-        public List<MostrarHabitacionDTO> ObtenerHabitaciones()
+        /// <returns>Lista de <see cref="MostrarHabitacionDto"/>.</returns>
+        public List<MostrarHabitacionDto> ObtenerHabitaciones()
         {
             return _repo.GetAll();
         }
@@ -61,8 +71,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
         /// <summary>
         /// Obtiene el catálogo de tipos de habitaciones disponibles.
         /// </summary>
-        /// <returns>Lista de <see cref="TiposHabitacionDTO"/>.</returns>
-        public List<TiposHabitacionDTO> ListarTiposHabitacion()
+        /// <returns>Lista de <see cref="TiposHabitacionDto"/>.</returns>
+        public List<TiposHabitacionDto> ListarTiposHabitacion()
         {
             return _repo.ListarTiposHabitacion();
         }
@@ -84,29 +94,13 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
         /// <returns>Lista de <see cref="HabitacionDto"/> del piso indicado, o lista vacía si el formato es inválido.</returns>
         public List<HabitacionDto> ListarHabitacionesXPiso(string pisoTexto)
         {
-            var habitaciones = new List<HabitacionDto>();
-
             // Validar que el texto sea numérico y mayor a 0
             if (string.IsNullOrWhiteSpace(pisoTexto) || !int.TryParse(pisoTexto, out var piso) || piso <= 0)
             {
-                return habitaciones; // devuelve lista vacía
+                return new List<HabitacionDto>(); // entrada inválida: lista vacía sin consultar la base
             }
 
-            using (var db = new Sistema_HospitalarioEntities_Conexion())
-            {
-                habitaciones = db.habitacion
-                    .Where(h => h.nro_piso == piso)
-                    .OrderBy(h => h.nro_habitacion)
-                    .Select(h => new HabitacionDto
-                    {
-                        Nro_habitacion = h.nro_habitacion,
-                        Nro_piso = h.nro_piso,
-                        Tipo_habitacion = h.tipo_habitacion.nombre
-                    })
-                    .ToList();
-            }
-
-            return habitaciones;
+            return _repo.ListarPorPiso(piso);
         }
     }
 }

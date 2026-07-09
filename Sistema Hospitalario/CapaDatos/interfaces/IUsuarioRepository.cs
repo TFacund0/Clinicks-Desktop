@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Comunes;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
 {
@@ -35,8 +36,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene el listado de usuarios registrados con sus nombres de rol y estado.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarUsuariosDTO"/>.</returns>
-        List<MostrarUsuariosDTO> ObtenerUsuarios();
+        /// <returns>Lista de <see cref="MostrarUsuariosDto"/>.</returns>
+        List<MostrarUsuariosDto> ObtenerUsuarios();
 
         /// <summary>
         /// Verifica si un nombre de usuario ya está registrado en el sistema.
@@ -49,7 +50,27 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// Recupera la información necesaria para el proceso de validación de credenciales.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
-        /// <returns>Objeto <see cref="DatosLoginUsuarioDTO"/> con el hash almacenado y datos de perfil.</returns>
-        DatosLoginUsuarioDTO ObtenerUsuarioParaLogin(string username);
+        /// <returns>Objeto <see cref="DatosLoginUsuarioDto"/> con el hash almacenado y datos de perfil.</returns>
+        DatosLoginUsuarioDto ObtenerUsuarioParaLogin(string username);
+
+        /// <summary>
+        /// Actualiza el hash de contraseña almacenado de un usuario.
+        /// Se utiliza para migrar hashes legacy a un formato más seguro.
+        /// </summary>
+        /// <param name="idUsuario">ID del usuario.</param>
+        /// <param name="nuevoHash">Nuevo hash de contraseña a almacenar.</param>
+        void ActualizarPasswordHash(int idUsuario, string nuevoHash);
+
+        /// <summary>
+        /// Obtiene el catálogo de roles disponibles en el sistema.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los roles.</returns>
+        List<CatalogoItemDto> ObtenerRoles();
+
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de una cuenta de usuario.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los estados.</returns>
+        List<CatalogoItemDto> ObtenerEstadosUsuario();
     }
 }

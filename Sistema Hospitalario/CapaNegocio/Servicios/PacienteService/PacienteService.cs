@@ -4,7 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService
@@ -15,13 +16,22 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService
     /// </summary>
     public class PacienteService
     {
-        private readonly PacienteRepository _repo = new PacienteRepository();
+        private readonly IPacienteRepository _repo;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PacienteService"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="PacienteService"/> con el repositorio por defecto.
         /// </summary>
-        public PacienteService()
+        public PacienteService() : this(new PacienteRepository())
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PacienteService"/> con un repositorio inyectado (útil para pruebas).
+        /// </summary>
+        /// <param name="repo">Instancia del repositorio de pacientes.</param>
+        public PacienteService(IPacienteRepository repo)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>

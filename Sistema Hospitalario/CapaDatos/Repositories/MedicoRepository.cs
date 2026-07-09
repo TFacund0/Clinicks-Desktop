@@ -1,9 +1,9 @@
 using Sistema_Hospitalario.CapaDatos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Consultas;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -114,13 +114,13 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarMedicoDTO> ObtenerMedicos()
+        public List<MostrarMedicoDto> ObtenerMedicos()
         {
 
             using (var db = new Sistema_HospitalarioEntities_Conexion())
             {
                 var lista = db.medico
-                    .Select(m => new MostrarMedicoDTO
+                    .Select(m => new MostrarMedicoDto
                     {
                         IdMedico = m.id_medico,
                         Nombre = m.nombre,
@@ -206,13 +206,35 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
             }
         }
         /// <inheritdoc />
-        public void InsertarConsulta(Consulta consulta)
+        public int? ObtenerIdPacientePorDni(int dni)
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
+                return db.paciente
+                         .Where(p => p.dni == dni)
+                         .Select(p => (int?)p.id_paciente)
+                         .FirstOrDefault();
+            }
+        }
+
+        /// <inheritdoc />
+        public void InsertarConsulta(ConsultaAltaDto consulta, int idMedico, int idPaciente)
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                var entidad = new Consulta
+                {
+                    motivo = consulta.Motivo,
+                    diagnostico = consulta.Diagnostico,
+                    tratamiento = consulta.Tratamiento,
+                    fecha_consulta = consulta.Fecha,
+                    id_medico = idMedico,
+                    id_paciente = idPaciente
+                };
+
                 try
                 {
-                    db.Consulta.Add(consulta);
+                    db.Consulta.Add(entidad);
                     db.SaveChanges();
                 }
                 // Captura el error específico de validación de EF (como el de la contraseña)

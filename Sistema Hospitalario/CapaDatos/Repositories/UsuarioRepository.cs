@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.moderDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Comunes;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
@@ -96,12 +97,12 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarUsuariosDTO> ObtenerUsuarios()
+        public List<MostrarUsuariosDto> ObtenerUsuarios()
         {
             using (var db = new Sistema_HospitalarioEntities_Conexion())
             {
                 var lista = db.usuario
-                    .Select(m => new MostrarUsuariosDTO
+                    .Select(m => new MostrarUsuariosDto
                     {
                         IdUsuario = m.id_usuario,
                         Nombre = m.nombre,
@@ -109,7 +110,6 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                         NombreUsuario = m.username,
                         Estado = m.estado_usuario.nombre,
                         Rol = m.rol.nombre,
-                        Password = m.password,
                         Correo = m.email
                     })
                     .ToList();
@@ -129,13 +129,13 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public DatosLoginUsuarioDTO ObtenerUsuarioParaLogin(string username)
+        public DatosLoginUsuarioDto ObtenerUsuarioParaLogin(string username)
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 var usuario = db.usuario
                     .Where(u => u.username == username)
-                    .Select(u => new DatosLoginUsuarioDTO
+                    .Select(u => new DatosLoginUsuarioDto
                     {
                         IdUsuario = u.id_usuario,
                         Username = u.username,
@@ -147,6 +147,42 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                     .FirstOrDefault();
 
                 return usuario;
+            }
+        }
+
+        /// <inheritdoc />
+        public void ActualizarPasswordHash(int idUsuario, string nuevoHash)
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                var usuario = db.usuario.FirstOrDefault(u => u.id_usuario == idUsuario);
+                if (usuario != null)
+                {
+                    usuario.password = nuevoHash;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public List<CatalogoItemDto> ObtenerRoles()
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                return db.rol
+                         .Select(r => new CatalogoItemDto { Id = r.id_rol, Nombre = r.nombre })
+                         .ToList();
+            }
+        }
+
+        /// <inheritdoc />
+        public List<CatalogoItemDto> ObtenerEstadosUsuario()
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                return db.estado_usuario
+                         .Select(e => new CatalogoItemDto { Id = e.id_estado_usuario, Nombre = e.nombre })
+                         .ToList();
             }
         }
     }

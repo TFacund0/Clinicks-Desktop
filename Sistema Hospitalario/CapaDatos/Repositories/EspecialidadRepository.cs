@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.EspecialidadDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Especialidades;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
 {
@@ -25,12 +25,12 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<EspecialidadDTO> GetAll()
+        public List<EspecialidadDto> GetAll()
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 return db.especialidad
-                         .Select(e => new EspecialidadDTO
+                         .Select(e => new EspecialidadDto
                          {
                              Id = e.id_especialidad,
                              Nombre = e.nombre,

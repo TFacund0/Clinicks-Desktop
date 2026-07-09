@@ -5,10 +5,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Habitaciones;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
 {
@@ -26,12 +25,12 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarHabitacionDTO> GetAll()
+        public List<MostrarHabitacionDto> GetAll()
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 return db.habitacion
-                         .Select(e => new MostrarHabitacionDTO
+                         .Select(e => new MostrarHabitacionDto
                          {
                              NroPiso = e.nro_piso,
                              NroHabitacion = e.nro_habitacion,
@@ -85,19 +84,37 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         /// <summary>
         /// Obtiene el catálogo de tipos de habitaciones registrados en el sistema.
         /// </summary>
-        /// <returns>Lista de <see cref="TiposHabitacionDTO"/>.</returns>
-        public List<TiposHabitacionDTO> ListarTiposHabitacion()
+        /// <returns>Lista de <see cref="TiposHabitacionDto"/>.</returns>
+        public List<TiposHabitacionDto> ListarTiposHabitacion()
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 return db.tipo_habitacion
-                            .Select(e => new TiposHabitacionDTO
+                            .Select(e => new TiposHabitacionDto
                             {
                                 IdTipoHabitacion = e.id_tipo_habitacion,
                                 Nombre = e.nombre
 
                             })
                             .ToList();
+            }
+        }
+
+        /// <inheritdoc />
+        public List<HabitacionDto> ListarPorPiso(int piso)
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                return db.habitacion
+                         .Where(h => h.nro_piso == piso)
+                         .OrderBy(h => h.nro_habitacion)
+                         .Select(h => new HabitacionDto
+                         {
+                             Nro_habitacion = h.nro_habitacion,
+                             Nro_piso = h.nro_piso,
+                             Tipo_habitacion = h.tipo_habitacion.nombre
+                         })
+                         .ToList();
             }
         }
     }

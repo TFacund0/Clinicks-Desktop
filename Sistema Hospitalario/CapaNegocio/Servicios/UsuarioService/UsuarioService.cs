@@ -1,11 +1,11 @@
-using Sistema_Hospitalario.CapaDatos.Interfaces; // Asegurate que el using sea correcto
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO; // O donde estén tus DTOs
-using System; // Necesario para Exception
+using Sistema_Hospitalario.CapaNegocio.DTOs.Comunes;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
+using Sistema_Hospitalario.CapaNegocio.Seguridad;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography; // Necesario para hashing
-using System.Text; // Necesario para hashing
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
 {
@@ -15,14 +15,13 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
     /// </summary>
     public class UsuarioService
     {
-        private readonly UsuarioRepository _repo;
+        private readonly IUsuarioRepository _repo;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UsuarioService"/> con el repositorio por defecto.
         /// </summary>
-        public UsuarioService()
+        public UsuarioService() : this(new UsuarioRepository())
         {
-            _repo = new UsuarioRepository();
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// <param name="repo">Instancia del repositorio de usuarios.</param>
         public UsuarioService(IUsuarioRepository repo)
         {
-            _repo = new UsuarioRepository();
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
@@ -39,11 +38,11 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// </summary>
         /// <param name="campo">Campo por el cual filtrar u ordenar (NombreUsuario, Nombre, Apellido, correo, Rol, Estado).</param>
         /// <param name="valor">Valor de búsqueda para el filtro.</param>
-        /// <returns>Lista de <see cref="MostrarUsuariosDTO"/> filtrada y ordenada.</returns>
-        public List<MostrarUsuariosDTO> ObtenerUsuarios(string campo = null, string valor = null)
+        /// <returns>Lista de <see cref="MostrarUsuariosDto"/> filtrada y ordenada.</returns>
+        public List<MostrarUsuariosDto> ObtenerUsuarios(string campo = null, string valor = null)
         {
             var listaMaestra = _repo.ObtenerUsuarios();
-            List<MostrarUsuariosDTO> resultado;
+            List<MostrarUsuariosDto> resultado;
 
             // Filtrado (si hay valor)
             if (!string.IsNullOrEmpty(valor))
@@ -115,14 +114,14 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// </summary>
         /// <param name="dto">DTO con los datos del nuevo usuario.</param>
         /// <returns>Tupla con el estado de éxito, el ID generado y un mensaje de error si aplica.</returns>
-        public (bool Ok, int IdGenerado, string Error) AgregarUsuario(UsuarioAltaDTO dto)
+        public (bool Ok, int IdGenerado, string Error) AgregarUsuario(UsuarioAltaDto dto)
         {
             if (_repo.ExisteUsername(dto.NombreUsuario))
             {
                 return (false, 0, $"El nombre de usuario '{dto.NombreUsuario}' ya está en uso.");
             }
 
-            string hashedPassword = HashPassword(dto.Password);
+            string hashedPassword = PasswordHasher.Hash(dto.Password);
 
             return _repo.Insertar(
                 dto.Nombre,
@@ -141,35 +140,33 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// Elimina un usuario del sistema por su ID, con restricciones de seguridad para cuentas críticas.
         /// </summary>
         /// <param name="idUsuario">ID del usuario a eliminar.</param>
-        /// <exception cref="Exception">Se lanza si se intenta eliminar al Administrador principal (ID 1).</exception>
+        /// <exception cref="InvalidOperationException">Se lanza si se intenta eliminar al Administrador principal (ID 1).</exception>
         public void EliminarUsuario(int idUsuario)
         {
             if (idUsuario == 1)
             {
-                throw new Exception("No se puede eliminar al usuario Administrador principal.");
+                throw new InvalidOperationException("No se puede eliminar al usuario Administrador principal.");
             }
 
             _repo.Eliminar(idUsuario);
         }
 
         /// <summary>
-        /// Genera un hash SHA256 de una contraseña en texto plano.
+        /// Obtiene el catálogo de roles disponibles para asignar a usuarios.
         /// </summary>
-        /// <param name="password">Contraseña en texto plano.</param>
-        /// <returns>Representación hexadecimal del hash generado.</returns>
-        private string HashPassword(string password)
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los roles.</returns>
+        public List<CatalogoItemDto> ListarRoles()
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return _repo.ObtenerRoles();
+        }
 
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de una cuenta de usuario.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los estados.</returns>
+        public List<CatalogoItemDto> ListarEstadosUsuario()
+        {
+            return _repo.ObtenerEstadosUsuario();
         }
 
         /// <summary>
@@ -196,18 +193,21 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// </summary>
         /// <param name="usuario">Nombre de usuario (username).</param>
         /// <param name="contraseña">Contraseña en texto plano para validar.</param>
-        /// <returns>Objeto <see cref="UsuarioLoginResultadoDTO"/> con el resultado de la autenticación y datos de sesión.</returns>
-        internal UsuarioLoginResultadoDTO ValidarCredenciales(string usuario, string contraseña)
+        /// <returns>Objeto <see cref="UsuarioLoginResultadoDto"/> con el resultado de la autenticación y datos de sesión.</returns>
+        internal UsuarioLoginResultadoDto ValidarCredenciales(string usuario, string contraseña)
         {
-            string hashedPasswordIngresada = HashPassword(contraseña);
-
             var datosUsuario = _repo.ObtenerUsuarioParaLogin(usuario);
 
-            // 3. Verificamos si el usuario existe y la contraseña coincide
-            if (datosUsuario != null && datosUsuario.PasswordHashAlmacenado == hashedPasswordIngresada)
+            if (datosUsuario != null && PasswordHasher.Verificar(contraseña, datosUsuario.PasswordHashAlmacenado))
             {
-                // ¡Éxito! Devolvemos los datos necesarios
-                return new UsuarioLoginResultadoDTO
+                // Migración transparente: si el hash almacenado es legacy (SHA-256 sin salt),
+                // se regenera con PBKDF2 aprovechando que tenemos la contraseña en claro.
+                if (PasswordHasher.EsHashLegacy(datosUsuario.PasswordHashAlmacenado))
+                {
+                    _repo.ActualizarPasswordHash(datosUsuario.IdUsuario, PasswordHasher.Hash(contraseña));
+                }
+
+                return new UsuarioLoginResultadoDto
                 {
                     LoginExitoso = true,
                     IdUsuario = datosUsuario.IdUsuario,
@@ -219,7 +219,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
             else
             {
                 // Falla (usuario no encontrado o contraseña incorrecta)
-                return new UsuarioLoginResultadoDTO { LoginExitoso = false };
+                return new UsuarioLoginResultadoDto { LoginExitoso = false };
 
             }
         }

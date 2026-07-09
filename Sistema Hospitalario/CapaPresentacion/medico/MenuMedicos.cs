@@ -19,9 +19,6 @@ namespace Sistema_Hospitalario.CapaPresentacion.Medico
     /// </summary>
     public partial class MenuMedicos : Form
     {
-        /// <summary>Identificador del médico que ha iniciado sesión.</summary>
-        int _idMedicoLogueado;
-
         /// <summary>
         /// Inicializa una nueva instancia del formulario <see cref="MenuMedicos"/>.
         /// Configura el perfil del médico basado en la sesión activa.
