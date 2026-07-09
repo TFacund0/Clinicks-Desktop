@@ -109,6 +109,9 @@ El proyecto `Sistema Hospitalario.Tests` (MSTest + Moq) cubre la lógica de nego
 -   **UsuarioService**: alta de usuarios (hashing y unicidad de username), validación de credenciales, migración automática de hashes legacy al iniciar sesión, filtros/ordenamiento de listados y reglas de negocio (no se puede eliminar al administrador principal).
 -   **TurnoService**: conteo de turnos por estado (case-insensitive, pendientes solo del día) y validación de turnos duplicados por paciente/médico/fecha.
 -   **MedicoService**: filtros combinados de pacientes (nombre, apellido, DNI) y ordenamiento por apellido y nombre.
+-   **PacienteService**: alta con unicidad de DNI, estado inicial por defecto y normalización de datos; edición con validaciones; listados por estado.
+-   **InternacionService**: validaciones de egreso (coherencia de fechas, diagnóstico obligatorio) y conteos por procedimiento.
+-   **EstadisticasService**: series semanales completas (7 días, con ceros en días sin datos) y distribución de camas.
 
 Se ejecutan desde el **Test Explorer** de Visual Studio (`Ctrl+E, T` → Run All).
 
