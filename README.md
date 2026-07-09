@@ -25,14 +25,16 @@ El sistema sigue el patrón de diseño de **Arquitectura en Capas**:
 
 -   **Capa de Presentación (UI)**: Desarrollada en **Windows Forms (C#)**. Utiliza controles de usuario (UserControls) para una navegación fluida y moderna.
 -   **Capa de Negocio (BLL)**: Contiene la lógica central, validaciones y orquestación de servicios. Implementa el uso de **DTOs (Data Transfer Objects)** para la comunicación segura entre capas.
--   **Capa de Datos (DAL)**: Gestión de persistencia mediante **Entity Framework (Database First)** y Repositorios.
+-   **Capa de Datos (DAL)**: Gestión de persistencia mediante **Entity Framework (Database First)** y el patrón **Repositorio con interfaces** (`IUsuarioRepository`, `ITurnoRepository`, etc.).
+
+Los servicios de la capa de negocio reciben sus repositorios por **inyección de dependencias por constructor**, lo que desacopla las capas y permite reemplazarlos por mocks en pruebas unitarias.
 
 ### Tecnologías Clave:
 -   **Lenguaje**: C# (.NET Framework 4.8)
 -   **Persistencia**: Entity Framework 6.0
 -   **Base de Datos**: Microsoft SQL Server
 -   **Gráficos**: LiveCharts (para el módulo de estadísticas)
--   **Seguridad**: Hashing de contraseñas con SHA-256
+-   **Seguridad**: Hashing de contraseñas con **PBKDF2** (salt aleatorio + 100.000 iteraciones), con migración transparente de los hashes legacy SHA-256 al iniciar sesión
 
 ---
 
@@ -102,11 +104,12 @@ El sistema está dividido en 4 roles principales, cada uno con acceso restringid
 
 Este proyecto representa un hito importante en mi formación como desarrollador:
 -   **Primera implementación de N-Layer**: Aprendí a separar responsabilidades para lograr un código más mantenible.
+-   **Refactor hacia buenas prácticas**: Con el tiempo incorporé mejoras al proyecto original, como inyección de dependencias por constructor sobre interfaces de repositorio y el reemplazo de SHA-256 por PBKDF2 con salt para el almacenamiento de contraseñas.
 -   **Manejo de Transacciones**: Gestión de cambios concurrentes en pacientes, camas e internaciones.
 -   **Documentación Profesional**: Implementación de comentarios XML para soporte de IntelliSense.
 
 > [!NOTE]
-> Aunque este proyecto fue desarrollado durante mis inicios con arquitecturas complejas, hoy en día aplico patrones más avanzados como **Interfaces (IoC)**, **Inyección de Dependencias**, **JWT** para seguridad y **Clean Architecture**.
+> Aunque este proyecto fue desarrollado durante mis inicios con arquitecturas complejas, lo sigo manteniendo y mejorando: ya incorpora **interfaces de repositorio con Inyección de Dependencias** y **PBKDF2** para contraseñas. En proyectos más recientes aplico además **JWT** para seguridad y **Clean Architecture**.
 
 ---
 
