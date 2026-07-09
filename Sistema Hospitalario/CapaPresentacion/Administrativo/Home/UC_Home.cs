@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.HomeDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Home;
 using Sistema_Hospitalario.CapaNegocio.Servicios.HomeService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService.CamaService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.InternacionService;

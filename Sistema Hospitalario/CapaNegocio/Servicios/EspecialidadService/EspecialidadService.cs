@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.EspecialidadDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Especialidades;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.EspecialidadService
 {
@@ -37,8 +37,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.EspecialidadService
         /// <summary>
         /// Obtiene el listado completo de todas las especialidades médicas registradas.
         /// </summary>
-        /// <returns>Lista de <see cref="EspecialidadDTO"/>.</returns>
-        public List<EspecialidadDTO> ObtenerEspecialidades()
+        /// <returns>Lista de <see cref="EspecialidadDto"/>.</returns>
+        public List<EspecialidadDto> ObtenerEspecialidades()
         {
             return _repo.GetAll();
         }

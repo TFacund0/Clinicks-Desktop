@@ -1,8 +1,8 @@
 using Sistema_Hospitalario.CapaDatos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -113,13 +113,13 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarMedicoDTO> ObtenerMedicos()
+        public List<MostrarMedicoDto> ObtenerMedicos()
         {
 
             using (var db = new Sistema_HospitalarioEntities_Conexion())
             {
                 var lista = db.medico
-                    .Select(m => new MostrarMedicoDTO
+                    .Select(m => new MostrarMedicoDto
                     {
                         IdMedico = m.id_medico,
                         Nombre = m.nombre,

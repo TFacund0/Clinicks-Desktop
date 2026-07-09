@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sistema_Hospitalario.CapaNegocio.DTOs.InternacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Internaciones;
 using Sistema_Hospitalario.CapaNegocio.Servicios.InternacionService;
 
 namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Hospitalización

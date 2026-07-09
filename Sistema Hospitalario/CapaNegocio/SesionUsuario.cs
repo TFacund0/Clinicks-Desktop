@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 
 namespace Sistema_Hospitalario.CapaNegocio // O el namespace que uses
 {
@@ -43,7 +43,7 @@ namespace Sistema_Hospitalario.CapaNegocio // O el namespace que uses
         /// Registra el inicio de sesión exitoso, almacenando los datos del usuario en la sesión global.
         /// </summary>
         /// <param name="datosUsuario">DTO con la información del resultado del login.</param>
-        public static void Login(UsuarioLoginResultadoDTO datosUsuario)
+        public static void Login(UsuarioLoginResultadoDto datosUsuario)
         {
             if (datosUsuario != null && datosUsuario.LoginExitoso)
             {

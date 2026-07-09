@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HomeDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Home;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
 {

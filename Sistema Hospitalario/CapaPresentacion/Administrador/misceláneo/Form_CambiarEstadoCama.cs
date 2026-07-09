@@ -1,4 +1,4 @@
-﻿using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Camas;
 using Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService.CamaService;
 using System;
 using System.Collections.Generic;

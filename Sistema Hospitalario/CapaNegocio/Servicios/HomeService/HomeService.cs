@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.HomeDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Home;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 

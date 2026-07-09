@@ -1,10 +1,10 @@
 using Sistema_Hospitalario.CapaDatos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ConsultaDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Consultas;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,7 +86,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         /// <param name="dto">DTO con los datos de la consulta.</param>
         /// <param name="idMedicoLogueado">ID del médico que realiza la consulta.</param>
         /// <returns>Una tupla con el estado de éxito y un mensaje de error si falla.</returns>
-        public (bool Ok, string Error) RegistrarConsulta(ConsultaAltaDTO dto, int idMedicoLogueado)
+        public (bool Ok, string Error) RegistrarConsulta(ConsultaAltaDto dto, int idMedicoLogueado)
         {
             try
             {
@@ -144,11 +144,11 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         /// <param name="campo">Nombre del campo por el cual filtrar (Nombre, Apellido, DNI, etc.).</param>
         /// <param name="valor">Valor a buscar en el campo especificado.</param>
         /// <returns>Lista de médicos filtrada y ordenada según el campo especificado.</returns>
-        public List<MostrarMedicoDTO> ObtenerMedicos(string campo = null, string valor = null)
+        public List<MostrarMedicoDto> ObtenerMedicos(string campo = null, string valor = null)
         {
             var listaCompleta = _repo.ObtenerMedicos();
 
-            List<MostrarMedicoDTO> resultado;
+            List<MostrarMedicoDto> resultado;
 
             // FILTRAMOS SI HAY VALOR
             if (!string.IsNullOrEmpty(valor))
@@ -263,14 +263,14 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
         /// <summary>
         /// Obtiene una lista simplificada de médicos optimizada para mostrar en controles de selección (ComboBox).
         /// </summary>
-        /// <returns>Lista de <see cref="MedicoSimpleDTO"/> con nombre formateado y DNI.</returns>
-        public List<MedicoSimpleDTO> ObtenerMedicosParaComboBox()
+        /// <returns>Lista de <see cref="MedicoSimpleDto"/> con nombre formateado y DNI.</returns>
+        public List<MedicoSimpleDto> ObtenerMedicosParaComboBox()
         {
             var todosLosMedicos = _repo.ObtenerMedicos();
 
             var resultado = todosLosMedicos
                             .OrderBy(m => m.Apellido).ThenBy(m => m.Nombre).ThenBy(m => m.DNI)
-                            .Select(m => new MedicoSimpleDTO
+                            .Select(m => new MedicoSimpleDto
                             {
                                 Id = m.IdMedico,
                                 NombreCompletoYDNI = $"{m.Apellido}, {m.Nombre} ({m.DNI}) esp:{m.Especialidad}"

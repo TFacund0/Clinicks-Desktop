@@ -1,6 +1,6 @@
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.TurnoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Turnos;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

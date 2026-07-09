@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService;
 
 namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
@@ -34,7 +34,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         {
             _repoMock.Setup(r => r.ExisteUsername("jperez")).Returns(true);
 
-            var resultado = _service.AgregarUsuario(new UsuarioAltaDTO
+            var resultado = _service.AgregarUsuario(new UsuarioAltaDto
             {
                 NombreUsuario = "jperez",
                 Password = "Clave123"
@@ -61,7 +61,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
                     (n, a, u, e, rol, pass, c, m) => passwordAlmacenada = pass)
                 .Returns((true, 10, null));
 
-            var resultado = _service.AgregarUsuario(new UsuarioAltaDTO
+            var resultado = _service.AgregarUsuario(new UsuarioAltaDto
             {
                 Nombre = "Juan",
                 Apellido = "Pérez",
@@ -99,7 +99,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         [TestMethod]
         public void ValidarCredenciales_Correctas_DevuelveLoginExitosoConDatos()
         {
-            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDTO
+            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDto
             {
                 IdUsuario = 7,
                 Username = "jperez",
@@ -119,7 +119,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         [TestMethod]
         public void ValidarCredenciales_PasswordIncorrecta_DevuelveLoginFallido()
         {
-            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDTO
+            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDto
             {
                 IdUsuario = 7,
                 PasswordHashAlmacenado = Sistema_Hospitalario.CapaNegocio.Seguridad.PasswordHasher.Hash("Clave123")
@@ -133,7 +133,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         [TestMethod]
         public void ValidarCredenciales_UsuarioInexistente_DevuelveLoginFallido()
         {
-            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("fantasma")).Returns((DatosLoginUsuarioDTO)null);
+            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("fantasma")).Returns((DatosLoginUsuarioDto)null);
 
             var resultado = _service.ValidarCredenciales("fantasma", "Clave123");
 
@@ -152,7 +152,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
                 hashLegacy = sb.ToString();
             }
 
-            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDTO
+            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDto
             {
                 IdUsuario = 7,
                 PasswordHashAlmacenado = hashLegacy
@@ -168,7 +168,7 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         [TestMethod]
         public void ValidarCredenciales_HashYaEnPbkdf2_NoVuelveAHashear()
         {
-            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDTO
+            _repoMock.Setup(r => r.ObtenerUsuarioParaLogin("jperez")).Returns(new DatosLoginUsuarioDto
             {
                 IdUsuario = 7,
                 PasswordHashAlmacenado = Sistema_Hospitalario.CapaNegocio.Seguridad.PasswordHasher.Hash("Clave123")
@@ -184,11 +184,11 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         [TestMethod]
         public void ObtenerUsuarios_ConFiltroPorNombreUsuario_DevuelveSoloCoincidencias()
         {
-            _repoMock.Setup(r => r.ObtenerUsuarios()).Returns(new List<MostrarUsuariosDTO>
+            _repoMock.Setup(r => r.ObtenerUsuarios()).Returns(new List<MostrarUsuariosDto>
             {
-                new MostrarUsuariosDTO { IdUsuario = 1, NombreUsuario = "jperez" },
-                new MostrarUsuariosDTO { IdUsuario = 2, NombreUsuario = "mgarcia" },
-                new MostrarUsuariosDTO { IdUsuario = 3, NombreUsuario = "jptorres" }
+                new MostrarUsuariosDto { IdUsuario = 1, NombreUsuario = "jperez" },
+                new MostrarUsuariosDto { IdUsuario = 2, NombreUsuario = "mgarcia" },
+                new MostrarUsuariosDto { IdUsuario = 3, NombreUsuario = "jptorres" }
             });
 
             var resultado = _service.ObtenerUsuarios("NombreUsuario", "jp");

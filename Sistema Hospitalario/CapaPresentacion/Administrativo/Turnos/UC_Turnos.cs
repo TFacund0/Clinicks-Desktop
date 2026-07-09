@@ -1,5 +1,5 @@
 using Sistema_Hospitalario.CapaNegocio.DTOs;
-using Sistema_Hospitalario.CapaNegocio.DTOs.TurnoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Turnos;
 using Sistema_Hospitalario.CapaNegocio.Servicios;
 using Sistema_Hospitalario.CapaNegocio.Servicios.TurnoService;
 using Sistema_Hospitalario.CapaPresentacion.Administrativo.Turnos;

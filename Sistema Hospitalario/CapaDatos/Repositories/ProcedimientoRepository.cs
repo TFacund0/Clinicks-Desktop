@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ProcedimientoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Procedimientos;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
 {
@@ -24,12 +24,12 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarProcedimientoDTO> GetAll()
+        public List<MostrarProcedimientoDto> GetAll()
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 return db.procedimiento
-                         .Select(e => new MostrarProcedimientoDTO
+                         .Select(e => new MostrarProcedimientoDto
                          {
                              Nombre = e.nombre
                          })

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Habitaciones;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
 {
@@ -15,8 +15,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene el listado completo de habitaciones con sus detalles de piso y tipo.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarHabitacionDTO"/>.</returns>
-        List<MostrarHabitacionDTO> GetAll();
+        /// <returns>Lista de <see cref="MostrarHabitacionDto"/>.</returns>
+        List<MostrarHabitacionDto> GetAll();
 
         /// <summary>
         /// Crea una nueva habitación en el sistema.
@@ -35,7 +35,7 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene el catálogo de tipos de habitación disponibles.
         /// </summary>
-        /// <returns>Lista de <see cref="TiposHabitacionDTO"/>.</returns>
-        List<TiposHabitacionDTO> ListarTiposHabitacion();
+        /// <returns>Lista de <see cref="TiposHabitacionDto"/>.</returns>
+        List<TiposHabitacionDto> ListarTiposHabitacion();
     }
 }

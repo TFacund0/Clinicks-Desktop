@@ -1,6 +1,6 @@
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.EstadisticasDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Estadisticas;
 using System;
 using System.Collections.Generic;
 using System.Linq;

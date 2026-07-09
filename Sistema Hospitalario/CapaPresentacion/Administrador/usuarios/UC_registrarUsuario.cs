@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService;
 
@@ -264,7 +264,7 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
                 }
 
                 // Crear el DTO de alta
-                UsuarioAltaDTO nuevoUsuario = new UsuarioAltaDTO
+                UsuarioAltaDto nuevoUsuario = new UsuarioAltaDto
                 {
                     Nombre = TBNOMBRE.Text.Trim(),
                     Apellido = TBAPELLIDO.Text.Trim(),

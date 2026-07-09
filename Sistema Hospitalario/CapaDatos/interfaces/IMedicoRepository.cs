@@ -1,6 +1,6 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.HistorialDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +34,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene la lista de médicos formateada para visualización en grillas.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarMedicoDTO"/>.</returns>
-        List<MostrarMedicoDTO> ObtenerMedicos();
+        /// <returns>Lista de <see cref="MostrarMedicoDto"/>.</returns>
+        List<MostrarMedicoDto> ObtenerMedicos();
         /// <summary>
         /// Obtiene un listado básico de médicos.
         /// </summary>

@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.TurnoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Turnos;
 using Sistema_Hospitalario.CapaNegocio.Servicios.EstadisticasService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.TurnoService;
 using System;

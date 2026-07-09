@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Habitaciones;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
 
@@ -38,8 +38,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
         /// <summary>
         /// Obtiene el listado completo de todas las habitaciones con su información detallada.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarHabitacionDTO"/>.</returns>
-        public List<MostrarHabitacionDTO> ObtenerHabitaciones()
+        /// <returns>Lista de <see cref="MostrarHabitacionDto"/>.</returns>
+        public List<MostrarHabitacionDto> ObtenerHabitaciones()
         {
             return _repo.GetAll();
         }
@@ -71,8 +71,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
         /// <summary>
         /// Obtiene el catálogo de tipos de habitaciones disponibles.
         /// </summary>
-        /// <returns>Lista de <see cref="TiposHabitacionDTO"/>.</returns>
-        public List<TiposHabitacionDTO> ListarTiposHabitacion()
+        /// <returns>Lista de <see cref="TiposHabitacionDto"/>.</returns>
+        public List<TiposHabitacionDto> ListarTiposHabitacion()
         {
             return _repo.ListarTiposHabitacion();
         }

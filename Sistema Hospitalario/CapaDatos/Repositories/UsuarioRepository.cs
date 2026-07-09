@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
@@ -96,12 +96,12 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarUsuariosDTO> ObtenerUsuarios()
+        public List<MostrarUsuariosDto> ObtenerUsuarios()
         {
             using (var db = new Sistema_HospitalarioEntities_Conexion())
             {
                 var lista = db.usuario
-                    .Select(m => new MostrarUsuariosDTO
+                    .Select(m => new MostrarUsuariosDto
                     {
                         IdUsuario = m.id_usuario,
                         Nombre = m.nombre,
@@ -128,13 +128,13 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public DatosLoginUsuarioDTO ObtenerUsuarioParaLogin(string username)
+        public DatosLoginUsuarioDto ObtenerUsuarioParaLogin(string username)
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 var usuario = db.usuario
                     .Where(u => u.username == username)
-                    .Select(u => new DatosLoginUsuarioDTO
+                    .Select(u => new DatosLoginUsuarioDto
                     {
                         IdUsuario = u.id_usuario,
                         Username = u.username,

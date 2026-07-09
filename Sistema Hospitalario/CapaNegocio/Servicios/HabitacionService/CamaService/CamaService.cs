@@ -1,6 +1,6 @@
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Camas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +36,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService.CamaServi
         /// <summary>
         /// Obtiene el listado completo de todas las camas registradas en el sistema.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarCamaDTO"/>.</returns>
-        public List<MostrarCamaDTO> ObtenerCamas()
+        /// <returns>Lista de <see cref="MostrarCamaDto"/>.</returns>
+        public List<MostrarCamaDto> ObtenerCamas()
         {
             return _repo.GetAll();
         }

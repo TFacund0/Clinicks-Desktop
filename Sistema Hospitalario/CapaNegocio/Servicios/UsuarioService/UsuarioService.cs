@@ -1,6 +1,6 @@
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.Seguridad;
 using System;
 using System.Collections.Generic;
@@ -37,11 +37,11 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// </summary>
         /// <param name="campo">Campo por el cual filtrar u ordenar (NombreUsuario, Nombre, Apellido, correo, Rol, Estado).</param>
         /// <param name="valor">Valor de búsqueda para el filtro.</param>
-        /// <returns>Lista de <see cref="MostrarUsuariosDTO"/> filtrada y ordenada.</returns>
-        public List<MostrarUsuariosDTO> ObtenerUsuarios(string campo = null, string valor = null)
+        /// <returns>Lista de <see cref="MostrarUsuariosDto"/> filtrada y ordenada.</returns>
+        public List<MostrarUsuariosDto> ObtenerUsuarios(string campo = null, string valor = null)
         {
             var listaMaestra = _repo.ObtenerUsuarios();
-            List<MostrarUsuariosDTO> resultado;
+            List<MostrarUsuariosDto> resultado;
 
             // Filtrado (si hay valor)
             if (!string.IsNullOrEmpty(valor))
@@ -113,7 +113,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// </summary>
         /// <param name="dto">DTO con los datos del nuevo usuario.</param>
         /// <returns>Tupla con el estado de éxito, el ID generado y un mensaje de error si aplica.</returns>
-        public (bool Ok, int IdGenerado, string Error) AgregarUsuario(UsuarioAltaDTO dto)
+        public (bool Ok, int IdGenerado, string Error) AgregarUsuario(UsuarioAltaDto dto)
         {
             if (_repo.ExisteUsername(dto.NombreUsuario))
             {
@@ -174,8 +174,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// </summary>
         /// <param name="usuario">Nombre de usuario (username).</param>
         /// <param name="contraseña">Contraseña en texto plano para validar.</param>
-        /// <returns>Objeto <see cref="UsuarioLoginResultadoDTO"/> con el resultado de la autenticación y datos de sesión.</returns>
-        internal UsuarioLoginResultadoDTO ValidarCredenciales(string usuario, string contraseña)
+        /// <returns>Objeto <see cref="UsuarioLoginResultadoDto"/> con el resultado de la autenticación y datos de sesión.</returns>
+        internal UsuarioLoginResultadoDto ValidarCredenciales(string usuario, string contraseña)
         {
             var datosUsuario = _repo.ObtenerUsuarioParaLogin(usuario);
 
@@ -188,7 +188,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
                     _repo.ActualizarPasswordHash(datosUsuario.IdUsuario, PasswordHasher.Hash(contraseña));
                 }
 
-                return new UsuarioLoginResultadoDTO
+                return new UsuarioLoginResultadoDto
                 {
                     LoginExitoso = true,
                     IdUsuario = datosUsuario.IdUsuario,
@@ -200,7 +200,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
             else
             {
                 // Falla (usuario no encontrado o contraseña incorrecta)
-                return new UsuarioLoginResultadoDTO { LoginExitoso = false };
+                return new UsuarioLoginResultadoDto { LoginExitoso = false };
 
             }
         }

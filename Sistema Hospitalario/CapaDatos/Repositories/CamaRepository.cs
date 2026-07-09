@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
-using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Camas;
 
 namespace Sistema_Hospitalario.CapaDatos.Repositories
 {
@@ -25,12 +25,12 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
         }
 
         /// <inheritdoc />
-        public List<MostrarCamaDTO> GetAll()
+        public List<MostrarCamaDto> GetAll()
         {
             using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
             {
                 return db.cama
-                            .Select(e => new MostrarCamaDTO
+                            .Select(e => new MostrarCamaDto
                             {
                                 NroHabitacion = e.nro_habitacion,
                                 Estado = e.estado_cama.disponibilidad,

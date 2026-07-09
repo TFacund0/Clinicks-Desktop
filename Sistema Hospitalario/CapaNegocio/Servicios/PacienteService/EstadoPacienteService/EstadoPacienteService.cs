@@ -4,7 +4,7 @@ using System.Linq;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService
 {

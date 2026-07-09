@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO; 
+using Sistema_Hospitalario.CapaNegocio.DTOs.Habitaciones; 
 
 using System;
 using System.Collections.Generic;
@@ -59,7 +59,7 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.misceláneo
         // Carga de tipos de habitación en el ComboBox
         private void CargarComboBox()
         {
-            List<TiposHabitacionDTO> listaHabitacion = _service.ListarTiposHabitacion();
+            List<TiposHabitacionDto> listaHabitacion = _service.ListarTiposHabitacion();
 
             comboBox1.DataSource = listaHabitacion;
             comboBox1.DisplayMember = "nombre";  

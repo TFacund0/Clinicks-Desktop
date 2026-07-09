@@ -1,6 +1,6 @@
 using Sistema_Hospitalario.CapaNegocio;
 using Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

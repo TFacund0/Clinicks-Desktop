@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ProcedimientoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Procedimientos;
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.ProcedimientoService
 {
@@ -37,8 +37,8 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.ProcedimientoService
         /// <summary>
         /// Obtiene el listado de todos los procedimientos registrados para su visualización.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarProcedimientoDTO"/>.</returns>
-        public List<MostrarProcedimientoDTO> ObtenerProcedimientos()
+        /// <returns>Lista de <see cref="MostrarProcedimientoDto"/>.</returns>
+        public List<MostrarProcedimientoDto> ObtenerProcedimientos()
         {
             return _repo.GetAll();
         }

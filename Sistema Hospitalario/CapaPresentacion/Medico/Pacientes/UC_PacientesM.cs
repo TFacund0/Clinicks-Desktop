@@ -1,4 +1,4 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 using System;
 using System.Collections.Generic;

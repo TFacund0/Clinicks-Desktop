@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ProcedimientoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Procedimientos;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
 {
@@ -15,8 +15,8 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Obtiene el listado completo de procedimientos médicos disponibles en el sistema.
         /// </summary>
-        /// <returns>Lista de <see cref="MostrarProcedimientoDTO"/>.</returns>
-        List<MostrarProcedimientoDTO> GetAll();
+        /// <returns>Lista de <see cref="MostrarProcedimientoDto"/>.</returns>
+        List<MostrarProcedimientoDto> GetAll();
 
         /// <summary>
         /// Registra un nuevo tipo de procedimiento médico.

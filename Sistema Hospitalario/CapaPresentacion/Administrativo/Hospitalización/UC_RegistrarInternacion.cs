@@ -1,9 +1,9 @@
-using Sistema_Hospitalario.CapaNegocio.DTOs.HabitacionDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.CamaDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.InternacionDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.MedicoDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.PacienteDTO;
-using Sistema_Hospitalario.CapaNegocio.DTOs.ProcedimientoDTO;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Habitaciones;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Camas;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Internaciones;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Procedimientos;
 using Sistema_Hospitalario.CapaNegocio.Servicios.PacienteService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 
