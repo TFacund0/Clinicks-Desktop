@@ -4,7 +4,7 @@
 
 **Aplicación de escritorio en C# / WinForms con arquitectura en capas, construida sobre .NET Framework y Entity Framework 6, para administrar el ciclo operativo completo de un hospital: pacientes, turnos, internaciones, infraestructura y estadísticas gerenciales.**
 
-[<img src="https://img.shields.io/badge/Descargar-Ejecutable_v1.0-orange?style=for-the-badge&logo=windows" />](https://github.com/TFacund0/Clinicks-Desktop/releases/tag/v1.0)
+[<img src="https://img.shields.io/badge/Descargar-Última_Release-orange?style=for-the-badge&logo=windows" />](https://github.com/TFacund0/Clinicks-Desktop/releases/latest)
 
 [![CI](https://github.com/TFacund0/Clinicks-Desktop/actions/workflows/ci.yml/badge.svg)](https://github.com/TFacund0/Clinicks-Desktop/actions/workflows/ci.yml)
 [![.NET Framework](https://img.shields.io/badge/.NET_Framework-4.7.2-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
@@ -117,11 +117,13 @@ Cada push y pull request a `master` dispara el workflow de **[GitHub Actions](.g
 git clone https://github.com/TFacund0/Clinicks-Desktop.git
 ```
 
-1. **Base de datos**: restaurar el backup de [`database/Database-Backup/`](database/Database-Backup) en tu instancia de SQL Server.
+1. **Base de datos**: crear la base ejecutando en orden los scripts de [`database/Database-Backup/`](database/Database-Backup):
+   - `Sistema_Hospitalario-DDL.sql` — crea el esquema (tablas, relaciones, claves).
+   - `Sistema_Hospitalario-DML.sql` — inserta un usuario administrador inicial para poder iniciar sesión.
 2. **Conexión**: ajustar la cadena de conexión en `App.config` (proyecto `Sistema Hospitalario`) según tu instancia local.
 3. **Compilación**: abrir `Sistema Hospitalario.sln`, restaurar paquetes NuGet y ejecutar.
 
-¿Solo querés probarlo sin compilar? Descargá el [**ejecutable de la última release**](https://github.com/TFacund0/Clinicks-Desktop/releases/tag/v1.0).
+¿Solo querés probarlo sin compilar? Descargá el [**ejecutable de la última release**](https://github.com/TFacund0/Clinicks-Desktop/releases/latest).
 
 ---
 
