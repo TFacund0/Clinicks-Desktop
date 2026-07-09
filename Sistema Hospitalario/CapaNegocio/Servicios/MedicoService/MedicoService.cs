@@ -101,35 +101,16 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService
                 if (!int.TryParse(dto.DniPaciente, out int dniPacienteNum))
                     return (false, "El formato del DNI es incorrecto (debe ser numérico).");
 
-                // Buscamos al paciente en la BD
-                paciente pacienteEncontrado;
-                using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
-                {
-                    // Usamos 'FirstOrDefault' que es seguro
-                    pacienteEncontrado = db.paciente.FirstOrDefault(p => p.dni == dniPacienteNum);
-                }
+                // Buscamos al paciente a través del repositorio
+                int? idPaciente = _repo.ObtenerIdPacientePorDni(dniPacienteNum);
 
-                // Verificación 1: ¿Existe el paciente?
-                if (pacienteEncontrado == null)
+                if (idPaciente == null)
                 {
                     return (false, $"No se encontró ningún paciente con el DNI {dto.DniPaciente}.");
                 }
 
-                // --- CREACIÓN DEL OBJETO ---
-                var nuevaConsulta = new Sistema_Hospitalario.CapaDatos.Consulta
-                {
-                    motivo = dto.Motivo,
-                    diagnostico = dto.Diagnostico,
-                    tratamiento = dto.Tratamiento,
-                    fecha_consulta = dto.Fecha,
-
-                    // Asignamos las llaves
-                    id_medico = idMedicoLogueado,
-                    id_paciente = pacienteEncontrado.id_paciente
-                };
-
                 // --- GUARDADO ---
-                _repo.InsertarConsulta(nuevaConsulta);
+                _repo.InsertarConsulta(dto, idMedicoLogueado, idPaciente.Value);
 
                 return (true, null); // ¡Éxito!
             }

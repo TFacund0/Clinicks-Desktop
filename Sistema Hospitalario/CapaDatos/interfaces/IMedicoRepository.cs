@@ -1,4 +1,5 @@
 using Sistema_Hospitalario.CapaNegocio.DTOs.Historiales;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Consultas;
 using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
 using Sistema_Hospitalario.CapaNegocio.DTOs.Pacientes;
 using System;
@@ -44,8 +45,16 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <summary>
         /// Registra una nueva consulta médica en la base de datos.
         /// </summary>
-        /// <param name="consulta">Entidad consulta con los datos a persistir.</param>
-        void InsertarConsulta(Consulta consulta);
+        /// <param name="consulta">DTO con los datos de la consulta.</param>
+        /// <param name="idMedico">ID del médico que realiza la consulta.</param>
+        /// <param name="idPaciente">ID del paciente atendido.</param>
+        void InsertarConsulta(ConsultaAltaDto consulta, int idMedico, int idPaciente);
+        /// <summary>
+        /// Busca el ID de un paciente a partir de su número de DNI.
+        /// </summary>
+        /// <param name="dni">DNI del paciente.</param>
+        /// <returns>El ID del paciente, o <c>null</c> si no existe.</returns>
+        int? ObtenerIdPacientePorDni(int dni);
         /// <summary>
         /// Obtiene la lista de pacientes asociados a los procesos de un médico, filtrable por fecha de turno.
         /// </summary>

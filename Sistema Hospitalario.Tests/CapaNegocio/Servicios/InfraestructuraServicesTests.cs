@@ -85,13 +85,28 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
         }
 
         [TestMethod]
-        public void ListarHabitacionesXPiso_TextoInvalido_DevuelveListaVaciaSinTocarLaBase()
+        public void ListarHabitacionesXPiso_TextoInvalido_DevuelveListaVaciaSinConsultarElRepositorio()
         {
-            // "abc", vacío, cero o negativo no deben llegar a la base de datos.
+            // "abc", vacío, cero o negativo no deben llegar al repositorio.
             Assert.AreEqual(0, _service.ListarHabitacionesXPiso("abc").Count);
             Assert.AreEqual(0, _service.ListarHabitacionesXPiso("").Count);
             Assert.AreEqual(0, _service.ListarHabitacionesXPiso("0").Count);
             Assert.AreEqual(0, _service.ListarHabitacionesXPiso("-2").Count);
+            _repoMock.Verify(r => r.ListarPorPiso(It.IsAny<int>()), Times.Never);
+        }
+
+        [TestMethod]
+        public void ListarHabitacionesXPiso_PisoValido_DelegaEnElRepositorio()
+        {
+            _repoMock.Setup(r => r.ListarPorPiso(3)).Returns(new List<HabitacionDto>
+            {
+                new HabitacionDto { Nro_habitacion = 301, Nro_piso = 3 }
+            });
+
+            var resultado = _service.ListarHabitacionesXPiso("3");
+
+            Assert.AreEqual(1, resultado.Count);
+            Assert.AreEqual(301, resultado[0].Nro_habitacion);
         }
     }
 

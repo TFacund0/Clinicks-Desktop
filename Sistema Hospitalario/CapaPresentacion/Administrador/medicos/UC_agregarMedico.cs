@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 
+using Sistema_Hospitalario.CapaNegocio.Servicios.EspecialidadService;
 using Sistema_Hospitalario.CapaNegocio.Servicios.MedicoService;
 
 namespace Sistema_Hospitalario.CapaPresentacion.Administrador.medicos
@@ -223,18 +224,14 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.medicos
         // Cargar especialidades en el ComboBox
         private void CargarEspecialidades()
         {
-            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
-            {
-                var especialidades = db.especialidad
-                    .Select(e => new { e.id_especialidad, e.nombre })
-                    .ToList();
+            var especialidades = new EspecialidadService().ObtenerEspecialidades();
 
-                comboBox1.DisplayMember = "nombre";
-                comboBox1.ValueMember = "id_especialidad";
-                comboBox1.DataSource = especialidades;
+            comboBox1.DisplayMember = "Nombre";
+            comboBox1.ValueMember = "Id";
+            comboBox1.DataSource = especialidades;
 
+            if (comboBox1.Items.Count > 10)
                 comboBox1.SelectedIndex = 10;
-            }
         }
 
     }

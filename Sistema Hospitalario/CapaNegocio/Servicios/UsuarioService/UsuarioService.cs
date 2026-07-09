@@ -1,5 +1,6 @@
 using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Comunes;
 using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.Seguridad;
 using System;
@@ -148,6 +149,24 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
             }
 
             _repo.Eliminar(idUsuario);
+        }
+
+        /// <summary>
+        /// Obtiene el catálogo de roles disponibles para asignar a usuarios.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los roles.</returns>
+        public List<CatalogoItemDto> ListarRoles()
+        {
+            return _repo.ObtenerRoles();
+        }
+
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de una cuenta de usuario.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los estados.</returns>
+        public List<CatalogoItemDto> ListarEstadosUsuario()
+        {
+            return _repo.ObtenerEstadosUsuario();
         }
 
         /// <summary>

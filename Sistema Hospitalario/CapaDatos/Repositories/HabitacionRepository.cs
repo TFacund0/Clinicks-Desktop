@@ -99,5 +99,23 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                             .ToList();
             }
         }
+
+        /// <inheritdoc />
+        public List<HabitacionDto> ListarPorPiso(int piso)
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                return db.habitacion
+                         .Where(h => h.nro_piso == piso)
+                         .OrderBy(h => h.nro_habitacion)
+                         .Select(h => new HabitacionDto
+                         {
+                             Nro_habitacion = h.nro_habitacion,
+                             Nro_piso = h.nro_piso,
+                             Tipo_habitacion = h.tipo_habitacion.nombre
+                         })
+                         .ToList();
+            }
+        }
     }
 }

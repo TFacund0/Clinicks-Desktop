@@ -113,6 +113,37 @@ namespace Sistema_Hospitalario.Tests.CapaNegocio.Servicios
             StringAssert.Contains(resultado.Error, "DNI");
         }
 
+        [TestMethod]
+        public void RegistrarConsulta_PacienteInexistente_DevuelveError()
+        {
+            _repoMock.Setup(r => r.ObtenerIdPacientePorDni(30111222)).Returns((int?)null);
+
+            var resultado = _service.RegistrarConsulta(new Sistema_Hospitalario.CapaNegocio.DTOs.Consultas.ConsultaAltaDto
+            {
+                DniPaciente = "30111222",
+                Motivo = "Control"
+            }, idMedicoLogueado: 1);
+
+            Assert.IsFalse(resultado.Ok);
+            StringAssert.Contains(resultado.Error, "30111222");
+        }
+
+        [TestMethod]
+        public void RegistrarConsulta_DatosValidos_InsertaLaConsulta()
+        {
+            _repoMock.Setup(r => r.ObtenerIdPacientePorDni(30111222)).Returns(7);
+            var dto = new Sistema_Hospitalario.CapaNegocio.DTOs.Consultas.ConsultaAltaDto
+            {
+                DniPaciente = "30111222",
+                Motivo = "Control"
+            };
+
+            var resultado = _service.RegistrarConsulta(dto, idMedicoLogueado: 4);
+
+            Assert.IsTrue(resultado.Ok, resultado.Error);
+            _repoMock.Verify(r => r.InsertarConsulta(dto, 4, 7), Times.Once);
+        }
+
         // ---------- ObtenerMedicos ----------
 
         [TestMethod]

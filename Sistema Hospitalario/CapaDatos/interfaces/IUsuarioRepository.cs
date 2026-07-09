@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sistema_Hospitalario.CapaNegocio.DTOs.Comunes;
 using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 
 namespace Sistema_Hospitalario.CapaDatos.Interfaces
@@ -59,5 +60,17 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="idUsuario">ID del usuario.</param>
         /// <param name="nuevoHash">Nuevo hash de contraseña a almacenar.</param>
         void ActualizarPasswordHash(int idUsuario, string nuevoHash);
+
+        /// <summary>
+        /// Obtiene el catálogo de roles disponibles en el sistema.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los roles.</returns>
+        List<CatalogoItemDto> ObtenerRoles();
+
+        /// <summary>
+        /// Obtiene el catálogo de estados posibles de una cuenta de usuario.
+        /// </summary>
+        /// <returns>Lista de <see cref="CatalogoItemDto"/> con los estados.</returns>
+        List<CatalogoItemDto> ObtenerEstadosUsuario();
     }
 }

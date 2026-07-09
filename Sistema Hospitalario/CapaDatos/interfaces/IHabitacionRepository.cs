@@ -37,5 +37,12 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// </summary>
         /// <returns>Lista de <see cref="TiposHabitacionDto"/>.</returns>
         List<TiposHabitacionDto> ListarTiposHabitacion();
+
+        /// <summary>
+        /// Obtiene las habitaciones de un piso específico, ordenadas por número de habitación.
+        /// </summary>
+        /// <param name="piso">Número de piso a consultar.</param>
+        /// <returns>Lista de <see cref="HabitacionDto"/> del piso indicado.</returns>
+        List<HabitacionDto> ListarPorPiso(int piso);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Sistema_Hospitalario.CapaNegocio.DTOs.Comunes;
 using Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios;
 using Sistema_Hospitalario.CapaNegocio.DTOs.Medicos;
 using Sistema_Hospitalario.CapaDatos.Interfaces;
@@ -160,6 +161,28 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                     usuario.password = nuevoHash;
                     db.SaveChanges();
                 }
+            }
+        }
+
+        /// <inheritdoc />
+        public List<CatalogoItemDto> ObtenerRoles()
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                return db.rol
+                         .Select(r => new CatalogoItemDto { Id = r.id_rol, Nombre = r.nombre })
+                         .ToList();
+            }
+        }
+
+        /// <inheritdoc />
+        public List<CatalogoItemDto> ObtenerEstadosUsuario()
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                return db.estado_usuario
+                         .Select(e => new CatalogoItemDto { Id = e.id_estado_usuario, Nombre = e.nombre })
+                         .ToList();
             }
         }
     }

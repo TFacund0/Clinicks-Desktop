@@ -94,29 +94,13 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.HabitacionService
         /// <returns>Lista de <see cref="HabitacionDto"/> del piso indicado, o lista vacía si el formato es inválido.</returns>
         public List<HabitacionDto> ListarHabitacionesXPiso(string pisoTexto)
         {
-            var habitaciones = new List<HabitacionDto>();
-
             // Validar que el texto sea numérico y mayor a 0
             if (string.IsNullOrWhiteSpace(pisoTexto) || !int.TryParse(pisoTexto, out var piso) || piso <= 0)
             {
-                return habitaciones; // devuelve lista vacía
+                return new List<HabitacionDto>(); // entrada inválida: lista vacía sin consultar la base
             }
 
-            using (var db = new Sistema_HospitalarioEntities_Conexion())
-            {
-                habitaciones = db.habitacion
-                    .Where(h => h.nro_piso == piso)
-                    .OrderBy(h => h.nro_habitacion)
-                    .Select(h => new HabitacionDto
-                    {
-                        Nro_habitacion = h.nro_habitacion,
-                        Nro_piso = h.nro_piso,
-                        Tipo_habitacion = h.tipo_habitacion.nombre
-                    })
-                    .ToList();
-            }
-
-            return habitaciones;
+            return _repo.ListarPorPiso(piso);
         }
     }
 }
