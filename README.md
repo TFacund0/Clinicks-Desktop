@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏥 Clinicks — Sistema de Gestión Hospitalaria
+# Clinicks — Sistema de Gestión Hospitalaria
 
 **Aplicación de escritorio en C# / WinForms con arquitectura en capas, construida sobre .NET Framework y Entity Framework 6, para administrar el ciclo operativo completo de un hospital: pacientes, turnos, internaciones, infraestructura y estadísticas gerenciales.**
 
@@ -14,7 +14,7 @@
 [![Tests](https://img.shields.io/badge/tests-74%20passing-brightgreen)](.github/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
-[Capturas](#-capturas-de-pantalla) · [Arquitectura](#-arquitectura) · [Instalación](#-instalación) · [Tests](#-tests-y-calidad) · [Roadmap](#-roadmap)
+[Capturas](#capturas-de-pantalla) · [Arquitectura](#arquitectura) · [Instalación](#instalación) · [Tests](#tests-y-calidad) · [Roadmap](#roadmap)
 
 </div>
 
@@ -24,28 +24,28 @@
 
 ---
 
-## 📖 Sobre el proyecto
+## Sobre el proyecto
 
 Clinicks nació como proyecto académico para la facultad y se transformó en un proyecto que mantengo y refactorizo activamente para aplicar buenas prácticas de arquitectura de software: separación de responsabilidades, inyección de dependencias, testing unitario e integración continua.
 
 El sistema modela un flujo hospitalario real con **4 roles de usuario** (Administrador, Recepcionista, Médico y Gerente), cada uno con permisos y pantallas propias, sobre una base de datos relacional normalizada en SQL Server.
 
-> 📌 Este repositorio documenta tanto la **implementación original** como el **proceso de refactor** posterior (ver [Evolución del proyecto](#-evolución-del-proyecto)) — una decisión deliberada para mostrar criterio técnico, no solo el resultado final.
+> Este repositorio documenta tanto la **implementación original** como el **proceso de refactor** posterior (ver [Evolución del proyecto](#evolución-del-proyecto)) — una decisión deliberada para mostrar criterio técnico, no solo el resultado final.
 
 ---
 
-## ✨ Funcionalidades principales
+## Funcionalidades principales
 
 | Rol | Funcionalidades |
 |---|---|
-| 👮 **Administrador** | Gestión de usuarios y roles · Administración de infraestructura (habitaciones, camas, especialidades) · Backup y restauración de la base de datos |
-| 📝 **Recepcionista** | Alta de pacientes · Gestión de turnos con validación de disponibilidad y colisiones · Internaciones y altas médicas |
-| 👨‍⚕️ **Médico** | Agenda diaria personalizada · Registro de consultas e historial clínico · Cambio de estado de turnos |
-| 📈 **Gerente** | Dashboard con gráficos en tiempo real · Estadísticas de ocupación de camas · Reportes de afluencia de pacientes y efectividad de turnos |
+| **Administrador** | Gestión de usuarios y roles · Administración de infraestructura (habitaciones, camas, especialidades) · Backup y restauración de la base de datos |
+| **Recepcionista** | Alta de pacientes · Gestión de turnos con validación de disponibilidad y colisiones · Internaciones y altas médicas |
+| **Médico** | Agenda diaria personalizada · Registro de consultas e historial clínico · Cambio de estado de turnos |
+| **Gerente** | Dashboard con gráficos en tiempo real · Estadísticas de ocupación de camas · Reportes de afluencia de pacientes y efectividad de turnos |
 
 ---
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 El sistema sigue una **arquitectura en 3 capas (N-Layer)** con separación estricta de responsabilidades, verificada en CI:
 
@@ -67,7 +67,7 @@ CapaDatos (Repositorios + Entity Framework 6, Database First)
 - **Repository Pattern + Inyección de dependencias por constructor** — cada servicio depende de una interfaz de repositorio (`IUsuarioRepository`, `ITurnoRepository`, `ICamaRepository`...), lo que permite sustituirlas por mocks en los tests sin tocar base de datos.
 - **DTOs en cada frontera de capa** — las entidades de Entity Framework nunca cruzan hacia la UI; cada operación expone un DTO específico (`MostrarUsuariosDto`, `TurnoAgendaDto`, `PacienteDetalleDto`...).
 - **Seguridad de contraseñas con PBKDF2** — salt aleatorio por usuario + 100.000 iteraciones (`Rfc2898DeriveBytes`), con **migración transparente** de los hashes SHA-256 heredados: al iniciar sesión, si el hash almacenado es legacy y la contraseña es correcta, se regenera automáticamente en el formato seguro.
-- **Cero acceso a UI desde capas internas** — un hallazgo del proceso de refactor fue codigo que mostraba `MessageBox` desde el repositorio; se corrigió para que la capa de datos solo lance excepciones y sea la UI quien decida cómo comunicarlas.
+- **Cero acceso a UI desde capas internas** — un hallazgo del proceso de refactor fue código que mostraba `MessageBox` desde el repositorio; se corrigió para que la capa de datos solo lance excepciones y sea la UI quien decida cómo comunicarlas.
 
 <details>
 <summary><b>Ver stack tecnológico completo</b></summary>
@@ -88,7 +88,7 @@ CapaDatos (Repositorios + Entity Framework 6, Database First)
 
 ---
 
-## 🧪 Tests y calidad
+## Tests y calidad
 
 **74 tests unitarios** sobre la capa de negocio, con repositorios mockeados (sin dependencia de base de datos):
 
@@ -105,7 +105,7 @@ Cada push y pull request a `master` dispara el workflow de **[GitHub Actions](.g
 
 ---
 
-## 🚀 Instalación
+## Instalación
 
 ### Requisitos previos
 - Visual Studio 2019+ con carga de trabajo **.NET desktop development**
@@ -121,14 +121,14 @@ git clone https://github.com/TFacund0/Clinicks-Desktop.git
 2. **Conexión**: ajustar la cadena de conexión en `App.config` (proyecto `Sistema Hospitalario`) según tu instancia local.
 3. **Compilación**: abrir `Sistema Hospitalario.sln`, restaurar paquetes NuGet y ejecutar.
 
-> 💡 ¿Solo querés probarlo sin compilar? Descargá el [**ejecutable de la última release**](https://github.com/TFacund0/Clinicks-Desktop/releases/tag/v1.0).
+¿Solo querés probarlo sin compilar? Descargá el [**ejecutable de la última release**](https://github.com/TFacund0/Clinicks-Desktop/releases/tag/v1.0).
 
 ---
 
-## 📸 Capturas de pantalla
+## Capturas de pantalla
 
 <details open>
-<summary><b>👮 Administrador</b></summary>
+<summary><b>Administrador</b></summary>
 <p align="center">
   <img src="screenshots/Moderador/Pantalla inicial.png" width="45%" alt="Panel de administrador" />
   <img src="screenshots/Moderador/Usuario.png" width="45%" alt="Gestión de usuarios" />
@@ -136,7 +136,7 @@ git clone https://github.com/TFacund0/Clinicks-Desktop.git
 </details>
 
 <details>
-<summary><b>📝 Recepcionista</b></summary>
+<summary><b>Recepcionista</b></summary>
 <p align="center">
   <img src="screenshots/Recepcionista/Turnos.png" width="45%" alt="Gestión de turnos" />
   <img src="screenshots/Recepcionista/Hospitalización.png" width="45%" alt="Internaciones" />
@@ -144,7 +144,7 @@ git clone https://github.com/TFacund0/Clinicks-Desktop.git
 </details>
 
 <details>
-<summary><b>👨‍⚕️ Médico</b></summary>
+<summary><b>Médico</b></summary>
 <p align="center">
   <img src="screenshots/Médico/Agenda de Turnos.png" width="45%" alt="Agenda médica" />
   <img src="screenshots/Médico/HistorialClínico.png" width="45%" alt="Historial clínico" />
@@ -152,7 +152,7 @@ git clone https://github.com/TFacund0/Clinicks-Desktop.git
 </details>
 
 <details>
-<summary><b>📈 Gerente</b></summary>
+<summary><b>Gerente</b></summary>
 <p align="center">
   <img src="screenshots/Gerente/Dashboard.png" width="45%" alt="Dashboard gerencial" />
   <img src="screenshots/Gerente/EstadísticasTurnos.png" width="45%" alt="Estadísticas de turnos" />
@@ -161,7 +161,7 @@ git clone https://github.com/TFacund0/Clinicks-Desktop.git
 
 ---
 
-## 🔄 Evolución del proyecto
+## Evolución del proyecto
 
 Este repositorio muestra el proyecto original **y** un proceso posterior de refactor aplicando prácticas que no formaban parte de mi formación inicial:
 
@@ -180,7 +180,7 @@ Este repositorio muestra el proyecto original **y** un proceso posterior de refa
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Distribuido bajo licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
 
