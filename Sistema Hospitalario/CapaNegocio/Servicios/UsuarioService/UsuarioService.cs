@@ -200,6 +200,17 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
 
             if (datosUsuario != null && PasswordHasher.Verificar(contraseña, datosUsuario.PasswordHashAlmacenado))
             {
+                // El usuario existe y la contraseña es correcta, pero su cuenta puede estar deshabilitada.
+                if (!string.IsNullOrEmpty(datosUsuario.NombreEstado)
+                    && !datosUsuario.NombreEstado.Trim().Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new UsuarioLoginResultadoDto
+                    {
+                        LoginExitoso = false,
+                        MensajeError = "El usuario se encuentra deshabilitado. Contacte a un administrador."
+                    };
+                }
+
                 // Migración transparente: si el hash almacenado es legacy (SHA-256 sin salt),
                 // se regenera con PBKDF2 aprovechando que tenemos la contraseña en claro.
                 if (PasswordHasher.EsHashLegacy(datosUsuario.PasswordHashAlmacenado))
@@ -219,7 +230,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
             else
             {
                 // Falla (usuario no encontrado o contraseña incorrecta)
-                return new UsuarioLoginResultadoDto { LoginExitoso = false };
+                return new UsuarioLoginResultadoDto { LoginExitoso = false, MensajeError = "Usuario o contraseña incorrectos." };
 
             }
         }

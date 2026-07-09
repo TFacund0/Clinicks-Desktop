@@ -25,5 +25,8 @@ namespace Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios
 
         /// <summary>ID del médico asociado (si aplica).</summary>
         public int? IdMedicoAsociado { get; set; }
+
+        /// <summary>Mensaje de error a mostrar cuando <see cref="LoginExitoso"/> es falso.</summary>
+        public string MensajeError { get; set; }
     }
 }

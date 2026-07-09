@@ -92,11 +92,18 @@ DECLARE @sql nvarchar(max);
 SET @sql = N'ALTER DATABASE ' + QUOTENAME(@db) + N' SET SINGLE_USER WITH ROLLBACK IMMEDIATE;';
 EXEC(@sql);
 
-SET @sql = N'
-RESTORE DATABASE ' + QUOTENAME(@db) + N'
-FROM DISK = @path
-WITH REPLACE, STATS = 5;';
-EXEC sp_executesql @sql, N'@path nvarchar(4000)', @path;
+BEGIN TRY
+    SET @sql = N'
+    RESTORE DATABASE ' + QUOTENAME(@db) + N'
+    FROM DISK = @path
+    WITH REPLACE, STATS = 5;';
+    EXEC sp_executesql @sql, N'@path nvarchar(4000)', @path;
+END TRY
+BEGIN CATCH
+    SET @sql = N'ALTER DATABASE ' + QUOTENAME(@db) + N' SET MULTI_USER;';
+    EXEC(@sql);
+    THROW;
+END CATCH
 
 SET @sql = N'ALTER DATABASE ' + QUOTENAME(@db) + N' SET MULTI_USER;';
 EXEC(@sql);";

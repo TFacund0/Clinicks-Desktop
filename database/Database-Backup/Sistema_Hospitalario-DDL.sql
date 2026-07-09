@@ -3,7 +3,7 @@
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
 -- Date Created: 11/14/2025 17:58:06
--- Generated from EDMX file: C:\Users\USUARIO\Desktop\LSI\TERCER AÑO\Segundo cuatrimestre\Taller de Programación II\Proyecto\Sistema Hospitalario\Sistema Hospitalario\CapaDatos\Sistema_Hospitalario_BDD.edmx
+-- Generated from EDMX file: C:\Users\USUARIO\Desktop\LSI\TERCER Aï¿½O\Segundo cuatrimestre\Taller de Programaciï¿½n II\Proyecto\Sistema Hospitalario\Sistema Hospitalario\CapaDatos\Sistema_Hospitalario_BDD.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -303,7 +303,7 @@ GO
 CREATE TABLE [dbo].[usuario] (
     [id_usuario] int IDENTITY(1,1) NOT NULL,
     [username] varchar(50)  NOT NULL,
-    [password] varchar(64)  NOT NULL,
+    [password] varchar(200)  NOT NULL,
     [nombre] varchar(30)  NOT NULL,
     [apellido] varchar(30)  NOT NULL,
     [email] varchar(100)  NOT NULL,

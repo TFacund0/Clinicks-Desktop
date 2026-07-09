@@ -85,7 +85,8 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Hospitalización
             InitializeComponent();
 
             // Inputs
-            txtPiso.TextChanged += TxtPiso_TextChanged;
+            // txtPiso y cbPaciente ya se suscriben en el Designer; no volver a suscribirlos aquí
+            // para evitar que sus handlers se disparen dos veces por evento.
 
             cbHabitacion.TextUpdate -= CbHabitacion_TextUpdate;
             cbHabitacion.TextUpdate += CbHabitacion_TextUpdate;
@@ -96,7 +97,6 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Hospitalización
             cbCama.Enter += (s, ev) => cbCama.DroppedDown = true;
             cbCama.MouseDown += (s, ev) => cbCama.DroppedDown = true;
 
-            cbPaciente.TextUpdate += CbPaciente_TextUpdate;
             cbMedico.TextUpdate += CbMedico_TextUpdate;
             cbProcedimiento.TextUpdate += CbProcedimiento_TextUpdate;
 

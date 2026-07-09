@@ -11,7 +11,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,7 +54,7 @@ namespace WindowsFormsInicio_de_sesion
                 if (resultadoLogin == null || !resultadoLogin.LoginExitoso)
                 {
                     MessageBox.Show(
-                        "Usuario o contraseña incorrectos.",
+                        resultadoLogin?.MensajeError ?? "Usuario o contraseña incorrectos.",
                         "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
@@ -108,19 +107,5 @@ namespace WindowsFormsInicio_de_sesion
             }
         }
 
-
-        // ======================= MÉTODOS AUXILIARES =======================
-        // Método para calcular el hash SHA-256 de una cadena
-        private string CalcularSha256(string texto)
-        {
-            using (var sha = System.Security.Cryptography.SHA256.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(texto);
-                var hashBytes = sha.ComputeHash(bytes);
-
-                // Lo devolvemos como string hexadecimal para comparar
-                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-            }
-        }
     }
 }

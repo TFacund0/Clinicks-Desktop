@@ -89,7 +89,7 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                         }
                         else
                         {
-                            throw new Exception("No se puede eliminar el usuario .");
+                            throw new Exception("No se puede eliminar el usuario .", ex);
                         }
                     }
                 }
@@ -142,6 +142,7 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                         PasswordHashAlmacenado = u.password, // El hash guardado
                                                              // Manejo seguro por si el rol es nulo
                         NombreRol = (u.rol != null ? u.rol.nombre : "Sin Rol"),
+                        NombreEstado = (u.estado_usuario != null ? u.estado_usuario.nombre : null),
                         IdMedicoAsociado = u.id_medico
                     })
                     .FirstOrDefault();

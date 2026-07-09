@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: ["**"]
   pull_request:
     branches: [master]
 
@@ -20,6 +20,14 @@ jobs:
 
       - name: Configurar NuGet
         uses: nuget/setup-nuget@v2
+
+      - name: Cachear paquetes NuGet
+        uses: actions/cache@v4
+        with:
+          path: packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: Restaurar paquetes NuGet
         run: nuget restore "Sistema Hospitalario.sln"

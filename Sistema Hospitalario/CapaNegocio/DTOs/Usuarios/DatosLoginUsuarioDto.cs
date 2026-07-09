@@ -24,6 +24,9 @@ namespace Sistema_Hospitalario.CapaNegocio.DTOs.Usuarios
         /// <summary>Nombre del rol asignado (ej. 'Administrador', 'Médico').</summary>
         public string NombreRol { get; set; }
 
+        /// <summary>Nombre del estado del usuario (ej. 'Activo', 'Inactivo').</summary>
+        public string NombreEstado { get; set; }
+
         /// <summary>ID del médico asociado (si el usuario es un profesional de la salud).</summary>
         public int? IdMedicoAsociado { get; set; }
     }
