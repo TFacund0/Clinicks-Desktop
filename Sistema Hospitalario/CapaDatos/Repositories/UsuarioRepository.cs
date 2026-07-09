@@ -149,5 +149,19 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                 return usuario;
             }
         }
+
+        /// <inheritdoc />
+        public void ActualizarPasswordHash(int idUsuario, string nuevoHash)
+        {
+            using (var db = new Sistema_Hospitalario.CapaDatos.Sistema_HospitalarioEntities_Conexion())
+            {
+                var usuario = db.usuario.FirstOrDefault(u => u.id_usuario == idUsuario);
+                if (usuario != null)
+                {
+                    usuario.password = nuevoHash;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

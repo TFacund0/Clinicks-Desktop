@@ -51,5 +51,13 @@ namespace Sistema_Hospitalario.CapaDatos.Interfaces
         /// <param name="username">Nombre de usuario.</param>
         /// <returns>Objeto <see cref="DatosLoginUsuarioDTO"/> con el hash almacenado y datos de perfil.</returns>
         DatosLoginUsuarioDTO ObtenerUsuarioParaLogin(string username);
+
+        /// <summary>
+        /// Actualiza el hash de contraseña almacenado de un usuario.
+        /// Se utiliza para migrar hashes legacy a un formato más seguro.
+        /// </summary>
+        /// <param name="idUsuario">ID del usuario.</param>
+        /// <param name="nuevoHash">Nuevo hash de contraseña a almacenar.</param>
+        void ActualizarPasswordHash(int idUsuario, string nuevoHash);
     }
 }

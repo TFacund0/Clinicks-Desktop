@@ -195,6 +195,8 @@
     <Compile Include="CapaNegocio\Servicios\EspecialidadService\EspecialidadService.cs" />
     <Compile Include="CapaNegocio\Servicios\ProcedimientoService\ProcedimientoService.cs" />
     <Compile Include="CapaNegocio\Servicios\UsuarioService\UsuarioService.cs" />
+    <Compile Include="CapaDatos\Interfaces\IEstadisticasRepository.cs" />
+    <Compile Include="CapaNegocio\Seguridad\PasswordHasher.cs" />
     <Compile Include="CapaNegocio\SesionUsuario.cs" />
     <Compile Include="CapaPresentacion\Administrador\Backup\UC_AdminBackups.cs">
       <SubType>UserControl</SubType>

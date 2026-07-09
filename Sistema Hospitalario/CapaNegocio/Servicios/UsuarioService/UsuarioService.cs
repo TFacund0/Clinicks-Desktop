@@ -1,11 +1,10 @@
-using Sistema_Hospitalario.CapaDatos.Interfaces; // Asegurate que el using sea correcto
+using Sistema_Hospitalario.CapaDatos.Interfaces;
 using Sistema_Hospitalario.CapaDatos.Repositories;
-using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO; // O donde estén tus DTOs
-using System; // Necesario para Exception
+using Sistema_Hospitalario.CapaNegocio.DTOs.UsuarioDTO;
+using Sistema_Hospitalario.CapaNegocio.Seguridad;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography; // Necesario para hashing
-using System.Text; // Necesario para hashing
 
 namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
 {
@@ -15,14 +14,13 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
     /// </summary>
     public class UsuarioService
     {
-        private readonly UsuarioRepository _repo;
+        private readonly IUsuarioRepository _repo;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UsuarioService"/> con el repositorio por defecto.
         /// </summary>
-        public UsuarioService()
+        public UsuarioService() : this(new UsuarioRepository())
         {
-            _repo = new UsuarioRepository();
         }
 
         /// <summary>
@@ -31,7 +29,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// <param name="repo">Instancia del repositorio de usuarios.</param>
         public UsuarioService(IUsuarioRepository repo)
         {
-            _repo = new UsuarioRepository();
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         /// <summary>
@@ -122,7 +120,7 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
                 return (false, 0, $"El nombre de usuario '{dto.NombreUsuario}' ya está en uso.");
             }
 
-            string hashedPassword = HashPassword(dto.Password);
+            string hashedPassword = PasswordHasher.Hash(dto.Password);
 
             return _repo.Insertar(
                 dto.Nombre,
@@ -153,26 +151,6 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         }
 
         /// <summary>
-        /// Genera un hash SHA256 de una contraseña en texto plano.
-        /// </summary>
-        /// <param name="password">Contraseña en texto plano.</param>
-        /// <returns>Representación hexadecimal del hash generado.</returns>
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-
-        /// <summary>
         /// Genera un informe estadístico de la cantidad de usuarios agrupados por su rol.
         /// </summary>
         /// <returns>Diccionario donde la clave es el nombre del rol y el valor es la cantidad de usuarios.</returns>
@@ -199,14 +177,17 @@ namespace Sistema_Hospitalario.CapaNegocio.Servicios.UsuarioService
         /// <returns>Objeto <see cref="UsuarioLoginResultadoDTO"/> con el resultado de la autenticación y datos de sesión.</returns>
         internal UsuarioLoginResultadoDTO ValidarCredenciales(string usuario, string contraseña)
         {
-            string hashedPasswordIngresada = HashPassword(contraseña);
-
             var datosUsuario = _repo.ObtenerUsuarioParaLogin(usuario);
 
-            // 3. Verificamos si el usuario existe y la contraseña coincide
-            if (datosUsuario != null && datosUsuario.PasswordHashAlmacenado == hashedPasswordIngresada)
+            if (datosUsuario != null && PasswordHasher.Verificar(contraseña, datosUsuario.PasswordHashAlmacenado))
             {
-                // ¡Éxito! Devolvemos los datos necesarios
+                // Migración transparente: si el hash almacenado es legacy (SHA-256 sin salt),
+                // se regenera con PBKDF2 aprovechando que tenemos la contraseña en claro.
+                if (PasswordHasher.EsHashLegacy(datosUsuario.PasswordHashAlmacenado))
+                {
+                    _repo.ActualizarPasswordHash(datosUsuario.IdUsuario, PasswordHasher.Hash(contraseña));
+                }
+
                 return new UsuarioLoginResultadoDTO
                 {
                     LoginExitoso = true,
