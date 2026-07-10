@@ -84,6 +84,8 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Hospitalización
         {
             InitializeComponent();
 
+            txtObservaciones.MaxLength = 200;
+
             // Inputs
             // txtPiso y cbPaciente ya se suscriben en el Designer; no volver a suscribirlos aquí
             // para evitar que sus handlers se disparen dos veces por evento.
@@ -663,11 +665,11 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Hospitalización
                 return;
             }
 
-            if (texto.Length > 300)
+            if (texto.Length > 200)
             {
                 e.Cancel = true;
                 errorProvider1.SetError(txtObservaciones,
-                    "Máximo 300 caracteres.");
+                    "Máximo 200 caracteres.");
                 return;
             }
 

@@ -225,18 +225,13 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Pacientes
                 error = "El DNI debe contener solo números.";
                 return false;
             }
-            if (dniTexto.Length < 7 || dniTexto.Length > 8)
+            if (!int.TryParse(dniTexto, out var dniVal) || dniVal < 1_000_000 || dniVal > 99_999_999)
             {
-                error = "El DNI debe tener entre 7 y 8 dígitos.";
-                return false;
-            }
-            if (int.TryParse(dniTexto, out var dniVal) && dniVal <= 0)
-            {
-                error = "El DNI debe ser un número positivo.";
+                error = "El DNI debe estar entre 1.000.000 y 99.999.999.";
                 return false;
             }
 
-            // ===== Teléfono (obligatorio, numérico, máx. 10 dígitos) =====
+            // ===== Teléfono (obligatorio, numérico, 6 a 30 dígitos) =====
             var telTexto = txtTelefono.Text.Trim();
             if (string.IsNullOrWhiteSpace(telTexto))
             {
@@ -248,9 +243,9 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Pacientes
                 error = "El teléfono debe contener solo números.";
                 return false;
             }
-            if (telTexto.Length > 10)
+            if (telTexto.Length < 6 || telTexto.Length > 30)
             {
-                error = "El teléfono debe tener como máximo 10 dígitos.";
+                error = "El teléfono debe tener entre 6 y 30 dígitos.";
                 return false;
             }
 

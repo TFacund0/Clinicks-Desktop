@@ -34,6 +34,10 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                     if (existeUsuario)
                         return (false, 0, "Ya existe un usuario registrado con ese nombre de usuario.");
 
+                    bool existeEmail = db.usuario.Any(unUsuario => unUsuario.email == correo);
+                    if (existeEmail)
+                        return (false, 0, "Ya existe un usuario registrado con ese correo electrónico.");
+
                     var usuarioCreado = new usuario
                     {
                         nombre = Nombre,

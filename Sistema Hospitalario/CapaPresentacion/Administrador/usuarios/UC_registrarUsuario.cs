@@ -206,10 +206,10 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.usuarios
                 e.Cancel = true;
                 errorProvider1.SetError(TBPASSWORD, "Máximo 60 caracteres.");
             }
-            else if (TBPASSWORD.Text.Length < 6)
+            else if (TBPASSWORD.Text.Length < 8)
             { // Validar longitud mínima básica
                 e.Cancel = true;
-                errorProvider1.SetError(TBPASSWORD, "Debe tener al menos 6 caracteres.");
+                errorProvider1.SetError(TBPASSWORD, "Debe tener al menos 8 caracteres.");
             }
             else // Si todo está bien, limpiar el error
             {

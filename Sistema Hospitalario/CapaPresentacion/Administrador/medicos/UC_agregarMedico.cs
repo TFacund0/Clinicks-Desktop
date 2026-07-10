@@ -81,15 +81,15 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.medicos
         // ====== Validacion DNI ======
         private void TBDNI_Validating(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TBDNI.Text) || !long.TryParse(TBDNI.Text, out _))
+            if (string.IsNullOrWhiteSpace(TBDNI.Text) || !int.TryParse(TBDNI.Text, out int dni))
             {
                 e.Cancel = true;
                 errorProvider1.SetError(TBDNI, "El DNI es obligatorio y numérico.");
             }
-            else if (TBDNI.Text.Length < 7 || TBDNI.Text.Length > 15)
+            else if (dni < 1_000_000 || dni > 99_999_999)
             {
                 e.Cancel = true;
-                errorProvider1.SetError(TBDNI, "El DNI debe tener entre 7 y 15 dígitos.");
+                errorProvider1.SetError(TBDNI, "El DNI debe estar entre 1.000.000 y 99.999.999.");
             }
             else
             {
