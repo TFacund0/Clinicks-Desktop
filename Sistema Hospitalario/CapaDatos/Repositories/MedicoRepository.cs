@@ -51,6 +51,10 @@ namespace Sistema_Hospitalario.CapaDatos.Repositories
                     if (existeDni)
                         return (false, 0, "Ya existe un medico registrado con ese DNI.");
 
+                    bool existeMatricula = db.medico.Any(unMedico => unMedico.matricula == matricula);
+                    if (existeMatricula)
+                        return (false, 0, "Ya existe un medico registrado con esa matrícula.");
+
                     var nuevoMedico = new medico
                     {
                         nombre = nombre,

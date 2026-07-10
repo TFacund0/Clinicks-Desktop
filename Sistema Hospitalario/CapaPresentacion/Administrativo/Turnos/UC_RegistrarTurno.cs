@@ -64,6 +64,11 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Turnos
         {
             InitializeComponent();
 
+            txtObservaciones.MaxLength = 200;
+            txtCorreo.MaxLength = 150;
+            txtTelefono.MaxLength = 30;
+            txtTelefono.Validating += TxtTelefono_Validating;
+
             dtpFechaTurno.MinDate = DateTime.Today.AddDays(1);
             dtpFechaTurno.Value = DateTime.Today.AddDays(1);
 
@@ -261,6 +266,35 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Turnos
             {
                 e.Cancel = false;
                 errorProvider1.SetError(txtCorreo, null);
+            }
+        }
+
+        // ==== Validacion TextBox Telefono (opcional) ====
+        private void TxtTelefono_Validating(object sender, CancelEventArgs e)
+        {
+            var telefono = txtTelefono.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(telefono))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtTelefono, null);
+                return;
+            }
+
+            if (!telefono.All(char.IsDigit))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtTelefono, "El teléfono debe contener solo números.");
+            }
+            else if (telefono.Length < 6 || telefono.Length > 30)
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtTelefono, "El teléfono debe tener entre 6 y 30 dígitos.");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtTelefono, null);
             }
         }
 

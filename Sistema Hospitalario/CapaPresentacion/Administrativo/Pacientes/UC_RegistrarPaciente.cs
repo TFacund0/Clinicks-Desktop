@@ -185,15 +185,10 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Pacientes
                 e.Cancel = true;
                 errorProvider1.SetError(txtDni, "El DNI debe contener solo números.");
             }
-            else if (dniTexto.Length < 7 || dniTexto.Length > 8)
+            else if (!int.TryParse(dniTexto, out int dni) || dni < 1_000_000 || dni > 99_999_999)
             {
                 e.Cancel = true;
-                errorProvider1.SetError(txtDni, "El DNI debe tener entre 7 y 8 dígitos.");
-            }
-            else if (int.TryParse(dniTexto, out int dni) && dni <= 0)
-            {
-                e.Cancel = true;
-                errorProvider1.SetError(txtDni, "El DNI debe ser un número positivo.");
+                errorProvider1.SetError(txtDni, "El DNI debe estar entre 1.000.000 y 99.999.999.");
             }
             else
             {
@@ -218,10 +213,10 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrativo.Pacientes
                 e.Cancel = true;
                 errorProvider1.SetError(txtTelefono, "El teléfono debe contener solo números.");
             }
-            else if (telTexto.Length > 10)
+            else if (telTexto.Length < 6 || telTexto.Length > 30)
             {
                 e.Cancel = true;
-                errorProvider1.SetError(txtTelefono, "El teléfono debe tener como máximo 10 dígitos.");
+                errorProvider1.SetError(txtTelefono, "El teléfono debe tener entre 6 y 30 dígitos.");
             }
             else
             {

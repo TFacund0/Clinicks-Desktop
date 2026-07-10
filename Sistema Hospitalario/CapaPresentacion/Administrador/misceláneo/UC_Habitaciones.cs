@@ -115,8 +115,15 @@ namespace Sistema_Hospitalario.CapaPresentacion.Administrador.misceláneo
             if (this.ValidateChildren())
                 try
                 {
+                    if (comboBox1.SelectedValue == null)
+                    {
+                        MessageBox.Show("Debe seleccionar un tipo de habitación.", "Validación",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     int IdTipoHabitacion = (int)comboBox1.SelectedValue;
-                    if (int.TryParse(TBPISOHABITACION.Text.Trim(), out int nroPiso)) { 
+                    if (int.TryParse(TBPISOHABITACION.Text.Trim(), out int nroPiso)) {
                     _service.AgregarHabitacion(nroPiso, IdTipoHabitacion);
                     MessageBox.Show("habitacion agregada con éxito.", "Éxito",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
