@@ -362,8 +362,10 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Database backups (may contain patient PII, must never be committed).
+# Database backups (may contain patient PII): ignorados por defecto.
 # Los scripts DDL/DML sí se versionan: permiten recrear el esquema sin
-# necesitar el .bak.
+# necesitar el .bak. Excepción explícita más abajo para el backup de
+# referencia que sí se versiona a propósito.
 *.bak
-/database/Database-Backup/Archivo de Backup (.bak)/
+/database/Database-Backup/Archivo de Backup (.bak)/*
+!/database/Database-Backup/Archivo de Backup (.bak)/Backup_Sistema_Hospitalario.bak
