@@ -79,7 +79,7 @@ CapaDatos (Repositorios + Entity Framework 6, Database First)
 | UI | Windows Forms |
 | ORM | Entity Framework 6 (Database First) |
 | Base de datos | Microsoft SQL Server |
-| Gráficos | LiveCharts |
+| Gráficos | System.Windows.Forms.DataVisualization.Charting |
 | Seguridad | PBKDF2 (`Rfc2898DeriveBytes`) |
 | Testing | MSTest + Moq |
 | CI/CD | GitHub Actions |
